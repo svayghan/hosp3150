@@ -1,1107 +1,2103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOSP 3150: Hospitality & Tourism Marketing Simulations</title>
-    <style>
-        :root {
-            --navy: #102C57;
-            --navy-light: #1B365D;
-            --crimson: #BA0C2F;
-            --crimson-hover: #9E0A28;
-            --bg-gray: #F4F7FA;
-            --card-bg: #FFFFFF;
-            --border-color: #E2E8F0;
-            --text-dark: #1E293B;
-            --text-muted: #64748B;
-            --accent-green: #10B981;
-            --accent-blue: #3B82F6;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitality & Tourism Marketing Simulation Lab | Utah Tech University</title>
+  <style>
+    /* CSS STYLES & DESIGN TOKENS */
+    :root {
+      --navy-primary: #1e3a8a;
+      --navy-dark: #0f172a;
+      --navy-light: #2563eb;
+      --crimson-accent: #ba0c2f;
+      --crimson-hover: #9e0a28;
+      --crimson-subtle: #fef2f2;
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --border-focus: #3b82f6;
+      --success-green: #15803d;
+      --success-bg: #f0fdf4;
+      --warning-amber: #b45309;
+      --warning-bg: #fffbeb;
+      --info-blue: #0369a1;
+      --info-bg: #f0f9ff;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-        body {
-            background-color: var(--bg-gray);
-            color: var(--text-dark);
-            line-height: 1.5;
-            padding-bottom: 60px;
-        }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
 
-        header {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: #FFFFFF;
-            padding: 20px 32px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    /* HEADER */
+    header {
+      background-color: var(--navy-dark);
+      color: white;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
+    .badge {
+      background-color: var(--crimson-accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 0.35rem;
+    }
 
-        .header-title h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+    header h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
 
-        .header-title p {
-            font-size: 0.88rem;
-            color: #CBD5E1;
-            margin-top: 4px;
-        }
+    header p {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
 
-        .badge-tag {
-            background-color: var(--crimson);
-            color: white;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 9999px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-bottom: 4px;
-        }
+    .instructor-tag {
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
 
-        .nav-tabs-container {
-            max-width: 1200px;
-            margin: 16px auto 0;
-            padding: 0 16px;
-        }
+    /* TAB NAVIGATION */
+    .nav-tabs-wrapper {
+      background-color: #0f172a;
+      border-bottom: 2px solid #334155;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
 
-        .nav-tabs {
-            display: flex;
-            overflow-x: auto;
-            gap: 6px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 2px;
-        }
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
 
-        .nav-tab-btn {
-            background: #E2E8F0;
-            border: none;
-            padding: 10px 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
-            border-radius: 8px 8px 0 0;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
+    .tab-btn {
+      background-color: transparent;
+      color: #94a3b8;
+      border: none;
+      padding: 0.85rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
 
-        .nav-tab-btn:hover {
-            background-color: #CBD5E1;
-        }
+    .tab-btn:hover {
+      color: #f8fafc;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
 
-        .nav-tab-btn.active {
-            color: #FFFFFF;
-            background-color: var(--navy);
-            border-bottom: 3px solid var(--crimson);
-            font-weight: 700;
-        }
+    .tab-btn.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 3px solid var(--crimson-accent);
+    }
 
-        main {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 16px;
-        }
+    /* MAIN CONTAINER */
+    main {
+      flex: 1;
+      padding: 1.5rem 2rem 3rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-        .tab-content {
-            display: none;
-        }
+    .sim-panel {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.25s ease;
-        }
+    .sim-panel.active {
+      display: flex;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
 
-        .sim-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 20px;
-        }
+    @media (max-width: 1024px) {
+      .two-col-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        @media (max-width: 900px) {
-            .sim-grid { grid-template-columns: 1fr; }
-        }
+    /* CARDS */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-        }
+    .card h2 {
+      font-size: 1.25rem;
+      color: var(--navy-dark);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .card-header {
-            margin-bottom: 16px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
+    .chapter-tag {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--crimson-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
 
-        .card-header h2 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--navy);
-        }
+    .scenario-box {
+      background-color: #f1f5f9;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: #334155;
+      margin-bottom: 1.25rem;
+      border-left: 4px solid var(--navy-primary);
+    }
 
-        .card-header p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+    /* PRESET BUTTONS */
+    .preset-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      background: #f8fafc;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
 
-        .form-group {
-            margin-bottom: 14px;
-        }
+    .preset-toolbar-label {
+      width: 100%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
 
-        .form-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
+    .preset-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
 
-        .form-val-display {
-            color: var(--crimson);
-            font-weight: 700;
-        }
+    .preset-btn:hover {
+      background: #e2e8f0;
+      color: var(--navy-dark);
+    }
 
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 4px;
-            background: #CBD5E1;
-            outline: none;
-            accent-color: var(--crimson);
-            cursor: pointer;
-        }
+    .preset-btn.active {
+      background: var(--navy-primary);
+      color: #ffffff;
+      border-color: var(--navy-primary);
+    }
 
-        .btn-primary {
-            background-color: var(--crimson);
-            color: white;
-            border: none;
-            padding: 9px 18px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+    /* FORM CONTROLS & SLIDERS */
+    .control-group {
+      margin-bottom: 1.1rem;
+    }
 
-        .btn-primary:hover {
-            background-color: var(--crimson-hover);
-        }
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
 
-        .btn-secondary {
-            background-color: var(--navy);
-            color: white;
-            border: none;
-            padding: 9px 18px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+    .control-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: normal;
+      margin-left: 0.5rem;
+    }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+    .control-val {
+      color: var(--crimson-accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+      font-feature-settings: "tnum";
+    }
 
-        .metric-box {
-            background: #F8FAFC;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px 14px;
-            text-align: center;
-        }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 3px;
+      outline: none;
+      accent-color: var(--crimson-accent);
+      cursor: pointer;
+    }
 
-        .metric-box .label {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
+    input[type="range"]:focus {
+      outline: 2px solid #93c5fd;
+    }
 
-        .metric-box .value {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--navy);
-            margin-top: 2px;
-        }
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      flex-wrap: wrap;
+    }
 
-        .metric-box.highlight {
-            border-color: var(--crimson);
-            background: #FEF2F2;
-        }
+    .radio-card {
+      flex: 1;
+      min-width: 130px;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.65rem 0.85rem;
+      cursor: pointer;
+      background: #ffffff;
+      transition: all 0.15s ease;
+    }
 
-        .metric-box.highlight .value {
-            color: var(--crimson);
-        }
+    .radio-card:hover {
+      border-color: var(--navy-light);
+    }
 
-        .analysis-box {
-            background-color: #F1F5F9;
-            border-left: 4px solid var(--navy);
-            padding: 12px 14px;
-            border-radius: 0 6px 6px 0;
-            font-size: 0.84rem;
-            margin-top: 12px;
-        }
+    .radio-card.selected {
+      border-color: var(--navy-primary);
+      background-color: #eff6ff;
+      box-shadow: 0 0 0 1px var(--navy-primary);
+    }
 
-        .analysis-box h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 4px;
-        }
+    .radio-card input {
+      margin-right: 0.4rem;
+    }
 
-        .chart-container {
-            width: 100%;
-            height: 220px;
-            margin: 12px 0;
-            background: #FFFFFF;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+    .radio-card-title {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
 
-        textarea {
-            width: 100%;
-            height: 80px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px;
-            font-size: 0.82rem;
-            resize: vertical;
-            outline: none;
-        }
+    .radio-card-desc {
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
 
-        textarea:focus {
-            border-color: var(--navy);
-            box-shadow: 0 0 0 2px rgba(16, 44, 87, 0.1);
-        }
+    /* METRICS TILES */
+    .metrics-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
 
-        .student-header-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
+    @media (max-width: 768px) {
+      .metrics-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-        .text-input {
-            width: 100%;
-            padding: 7px 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.82rem;
-        }
+    .metric-card {
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.85rem;
+      text-align: center;
+      background-color: #fafafa;
+      transition: all 0.2s ease;
+    }
 
-        .copy-toast {
-            display: none;
-            background: #10B981;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: center;
-        }
-    </style>
+    .metric-card.highlight {
+      border-color: #cbd5e1;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    }
+
+    .metric-card.positive-accent {
+      border-color: #86efac;
+      background-color: #f0fdf4;
+    }
+
+    .metric-card.negative-accent {
+      border-color: #fca5a5;
+      background-color: #fef2f2;
+    }
+
+    .metric-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .metric-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      font-feature-settings: "tnum";
+    }
+
+    .metric-value.positive {
+      color: var(--success-green);
+    }
+
+    .metric-value.negative {
+      color: var(--crimson-accent);
+    }
+
+    .metric-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* COMPARISON TABLE */
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+    }
+
+    table.financial-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.825rem;
+      text-align: left;
+    }
+
+    table.financial-table th {
+      background-color: #f1f5f9;
+      color: var(--navy-dark);
+      font-weight: 700;
+      padding: 0.65rem 0.85rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    table.financial-table td {
+      padding: 0.6rem 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+
+    table.financial-table tr:last-child td {
+      border-bottom: none;
+      font-weight: 700;
+    }
+
+    table.financial-table tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .badge-win {
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    .badge-loss {
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    /* INSIGHT BOXES */
+    .insight-box {
+      background-color: var(--info-bg);
+      border-left: 4px solid var(--info-blue);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0.375rem;
+      font-size: 0.85rem;
+      color: #0c4a6e;
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .insight-box.warning {
+      background-color: var(--crimson-subtle);
+      border-left-color: var(--crimson-accent);
+      color: #7f1d1d;
+    }
+
+    .insight-box.success {
+      background-color: var(--success-bg);
+      border-left-color: var(--success-green);
+      color: #14532d;
+    }
+
+    /* TASK ACCORDION & LAB WORKBENCH */
+    .tasks-container {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .task-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 0.65rem;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    .task-header {
+      background-color: #f8fafc;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s ease;
+    }
+
+    .task-header:hover {
+      background-color: #f1f5f9;
+    }
+
+    .task-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .task-tag {
+      background: var(--navy-primary);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .task-title {
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    .task-toggle-icon {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .task-body {
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
+    .task-prompt {
+      background: #f1f5f9;
+      padding: 0.85rem;
+      border-radius: 0.4rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid #64748b;
+      font-size: 0.835rem;
+    }
+
+    .interactive-calc-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .calc-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .calc-input {
+      padding: 0.45rem 0.65rem;
+      border: 1px solid #94a3b8;
+      border-radius: 0.35rem;
+      font-size: 0.85rem;
+      width: 140px;
+    }
+
+    .btn-action {
+      background: var(--navy-primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-action:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .calc-feedback {
+      display: none;
+      padding: 0.75rem;
+      border-radius: 0.4rem;
+      font-size: 0.825rem;
+      margin-top: 0.5rem;
+    }
+
+    /* QUIZ COMPONENT */
+    .quiz-question {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .quiz-q-text {
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-option {
+      display: block;
+      margin-bottom: 0.4rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.35rem;
+      transition: background 0.15s ease;
+    }
+
+    .quiz-option:hover {
+      background: #f1f5f9;
+    }
+
+    .quiz-feedback {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0.35rem;
+      display: none;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* REFLECTION TEXTAREAS */
+    .task-textarea {
+      width: 100%;
+      height: 90px;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      resize: vertical;
+      margin-bottom: 0.5rem;
+    }
+
+    .task-textarea:focus {
+      outline: 2px solid #93c5fd;
+      border-color: #3b82f6;
+    }
+
+    /* CLIPBOARD ACTION BAR */
+    .report-action-bar {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .copy-success-badge {
+      display: none;
+      color: var(--success-green);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* SVG MAP CONTAINER */
+    .map-container {
+      width: 100%;
+      height: 320px;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      position: relative;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <div class="header-title">
-            <span class="badge-tag">Utah Tech University • HOSP 3150</span>
-            <h1>Hospitality & Tourism Marketing Simulation Lab</h1>
-            <p>Interactive In-Class Computer Modeling Suite (Fall 2026)</p>
-        </div>
-        <div style="text-align: right;">
-            <span style="font-size: 0.82rem; color: #E2E8F0;">Instructor: <strong>Dr. Saeed Vayghan</strong></span>
-        </div>
+  <!-- HEADER -->
+  <header>
+    <div>
+      <span class="badge">UTAH TECH UNIVERSITY • HOSP 3150</span>
+      <h1>Hospitality & Tourism Marketing Simulation Lab</h1>
+      <p>Interactive In-Class Computer Modeling Suite (Fall 2026)</p>
     </div>
-</header>
+    <div class="instructor-tag">
+      Instructor: <strong>Dr. Saeed Vayghan</strong>
+    </div>
+  </header>
 
-<div class="nav-tabs-container">
+  <!-- TAB NAVIGATION -->
+  <div class="nav-tabs-wrapper">
     <div class="nav-tabs">
-        <button class="nav-tab-btn active" onclick="openTab('sim-revenue', this)">💰 1. Revenue & Pricing (Ch 11)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-digital', this)">📈 2. Digital Media & ROAS (Ch 13/16)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-positioning', this)">🎯 3. Perceptual Brand Map (Ch 8)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-servicescape', this)">🏨 4. Servicescape Economics (Ch 9)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-profit-chain', this)">👥 5. Service-Profit Chain (Ch 10)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-dmo', this)">🌲 6. Sustainable DMO Yield (Ch 17)</button>
-        <button class="nav-tab-btn" onclick="openTab('sim-report', this)">📋 7. Canvas Exit Ticket</button>
+      <button class="tab-btn active" onclick="switchTab(1)">💰 1. Revenue & Pricing (Ch 11)</button>
+      <button class="tab-btn" onclick="switchTab(2)">📈 2. Digital Media & ROAS (Ch 13/16)</button>
+      <button class="tab-btn" onclick="switchTab(3)">🎯 3. Perceptual Brand Map (Ch 8)</button>
+      <button class="tab-btn" onclick="switchTab(4)">🏨 4. Servicescape Economics (Ch 9)</button>
+      <button class="tab-btn" onclick="switchTab(5)">👥 5. Service-Profit Chain (Ch 10)</button>
     </div>
-</div>
+  </div>
 
-<main>
+  <!-- MAIN CONTAINER -->
+  <main>
 
-    <!-- SIMULATION 1: REVENUE MANAGEMENT -->
-    <div id="sim-revenue" class="tab-content active">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 1: Dynamic Revenue Management & Rate Fence Strategy</h2>
-                    <p>Chapter 11 Alignment (Pricing Products & Rate Optimization)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> As Revenue Director for a 200-room resort with soft shoulder demand (50% occupancy), evaluate whether a flat 30% discount increases or destroys daily operating profitability.
-                </p>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Base Rack Rate (ADR)</span><span id="disp-base-adr" class="form-val-display">$300</span></div>
-                    <input type="range" id="input-base-adr" min="150" max="600" step="10" value="300" oninput="calcRevenueSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Baseline Occupancy %</span><span id="disp-base-occ" class="form-val-display">50%</span></div>
-                    <input type="range" id="input-base-occ" min="20" max="90" step="5" value="50" oninput="calcRevenueSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Proposed Flat Discount %</span><span id="disp-flat-disc" class="form-val-display">30%</span></div>
-                    <input type="range" id="input-flat-disc" min="0" max="50" step="5" value="30" oninput="calcRevenueSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Variable Cost Per Occupied Room</span><span id="disp-var-cost" class="form-val-display">$45</span></div>
-                    <input type="range" id="input-var-cost" min="20" max="80" step="5" value="45" oninput="calcRevenueSim()">
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>Live Financial Comparison (200 Rooms / Day)</h2>
-                    <p>Baseline vs. Discounted Daily Operating Performance</p>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <div class="label">Baseline RevPAR</div>
-                        <div class="value" id="rev-base-revpar">$150.00</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="label">Baseline Daily GOP</div>
-                        <div class="value" id="rev-base-gop">$25,500</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Discounted RevPAR</div>
-                        <div class="value" id="rev-disc-revpar">$147.00</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Discounted Daily GOP</div>
-                        <div class="value" id="rev-disc-gop">$23,100</div>
-                    </div>
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Strategic Revenue Verdict:</h4>
-                    <p id="rev-verdict-text">
-                        The flat 30% rate cut reduces daily GOP by $2,400. Even though occupancy rises from 50% to 70%, the additional cleaning costs ($45/room) and lower ADR erode net profit.
-                    </p>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-revenue" placeholder="Explain why a flat rate discount damages GOPPAR and how a fenced advance-purchase rate protects profitability..."></textarea>
-                </div>
-            </div>
+    <!-- SIMULATION 1: REVENUE & PRICING -->
+    <div id="sim-1" class="sim-panel active">
+      
+      <!-- TOP OVERVIEW: SCENARIO & PRESETS -->
+      <div class="card">
+        <h2>
+          <span>Simulation 1: Dynamic Revenue Management & Rate Fence Strategy</span>
+          <span style="font-size:0.85rem; font-weight:normal; color:#64748b;">Resort Capacity: <strong>200 Rooms</strong></span>
+        </h2>
+        <div class="chapter-tag">Chapter 11 Alignment (Pricing Products: Yield Management & Rate Fencing)</div>
+        
+        <div class="scenario-box">
+          <strong>Strategic Scenario:</strong> You are the Revenue Director for a 200-room resort in St. George, Utah. During shoulder season (midweek), baseline occupancy hovers around 50%. A junior sales manager suggests offering a <em>flat 30% discount to everyone</em> to "fill heads in beds." Your task is to evaluate whether a flat discount creates or destroys daily Gross Operating Profit (GOP), design targeted <strong>rate fences</strong> to prevent rate dilution, account for <strong>OTA commissions</strong>, and factor in <strong>ancillary guest spending (F&B / Resort Fees)</strong>.
         </div>
+
+        <!-- QUICK SCENARIO PRESETS -->
+        <div class="preset-toolbar">
+          <div class="preset-toolbar-label">Load Real-World Market Scenarios:</div>
+          <button class="preset-btn active" onclick="loadPricingPreset('shoulder')">🍂 1. Shoulder Midweek (Soft Demand)</button>
+          <button class="preset-btn" onclick="loadPricingPreset('peak')">🏔️ 2. St. George Marathon (High Compression)</button>
+          <button class="preset-btn" onclick="loadPricingPreset('ota')">🌐 3. OTA Flash Sale Trap</button>
+          <button class="preset-btn" onclick="loadPricingPreset('ancillary')">🍹 4. High Ancillary Resort Guest</button>
+        </div>
+      </div>
+
+      <!-- MAIN CONTROLS & LIVE COMPARISON GRID -->
+      <div class="two-col-grid">
+
+        <!-- LEFT COLUMN: INTERACTIVE REVENUE CONTROLS -->
+        <div class="card">
+          <h2 style="font-size:1.1rem; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+            ⚙️ Pricing & Yield Strategy Controls
+          </h2>
+
+          <!-- STRATEGY SELECTOR -->
+          <div style="margin-bottom:0.75rem;">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--navy-dark); display:block; margin-bottom:0.35rem;">
+              Select Revenue Management Architecture:
+            </label>
+            <div class="radio-group">
+              <label class="radio-card selected" id="card-strat-unfenced" onclick="selectStrategy('unfenced')">
+                <input type="radio" name="strat_type" id="strat-unfenced" checked>
+                <span class="radio-card-title">A. Unfenced Flat Discount</span>
+                <span class="radio-card-desc">Broad promotion. High cannibalization of full-rate guests.</span>
+              </label>
+
+              <label class="radio-card" id="card-strat-fenced" onclick="selectStrategy('fenced')">
+                <input type="radio" name="strat_type" id="strat-fenced">
+                <span class="radio-card-title">B. Fenced Rate Strategy</span>
+                <span class="radio-card-desc">Strict rules (14-day advance, non-ref). Protects rack rate.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- SLIDER 1: BASE RACK RATE -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Base Rack Rate (ADR / BAR) <span class="control-hint">Standard Transient Rate</span></span>
+              <span id="s1-rack-val" class="control-val">$300</span>
+            </div>
+            <input type="range" id="s1-rack" min="150" max="500" step="10" value="300" oninput="calcSim1()">
+          </div>
+
+          <!-- SLIDER 2: BASELINE OCCUPANCY -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Baseline Occupancy % <span class="control-hint">Shoulder season un-promoted</span></span>
+              <span id="s1-occ-val" class="control-val">50%</span>
+            </div>
+            <input type="range" id="s1-occ" min="20" max="90" step="5" value="50" oninput="calcSim1()">
+          </div>
+
+          <!-- SLIDER 3: PROPOSED DISCOUNT -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Promotional Discount % <span class="control-hint">Offered rate cut</span></span>
+              <span id="s1-disc-val" class="control-val">30%</span>
+            </div>
+            <input type="range" id="s1-disc" min="5" max="50" step="5" value="30" oninput="calcSim1()">
+          </div>
+
+          <!-- SLIDER 4: VARIABLE ROOM COST -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Variable Cost Per Occupied Room <span class="control-hint">Housekeeping, linen, supplies</span></span>
+              <span id="s1-vc-val" class="control-val">$45</span>
+            </div>
+            <input type="range" id="s1-vc" min="20" max="80" step="5" value="45" oninput="calcSim1()">
+          </div>
+
+          <!-- ADVANCED REALISTIC TOGGLES -->
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:0.5rem; padding:0.85rem; margin-top:1rem;">
+            <div style="font-size:0.8rem; font-weight:700; color:var(--navy-dark); margin-bottom:0.65rem; text-transform:uppercase;">
+              🏢 Real-World Channel & Ancillary Parameters
+            </div>
+
+            <!-- OTA CHANNEL MIX SLIDER -->
+            <div class="control-group" style="margin-bottom:0.75rem;">
+              <div class="control-label-row">
+                <span>OTA Share of Bookings % <span class="control-hint">Expedia/Booking 18% fee</span></span>
+                <span id="s1-ota-val" class="control-val">30%</span>
+              </div>
+              <input type="range" id="s1-ota" min="0" max="80" step="5" value="30" oninput="calcSim1()">
+            </div>
+
+            <!-- ANCILLARY SPEND PER GUEST -->
+            <div class="control-group" style="margin-bottom:0;">
+              <div class="control-label-row">
+                <span>Ancillary Spend / Occupied Room <span class="control-hint">F&B, Resort Fee, Spa</span></span>
+                <span id="s1-anc-val" class="control-val">$40</span>
+              </div>
+              <input type="range" id="s1-anc" min="0" max="100" step="5" value="40" oninput="calcSim1()">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: FINANCIAL SCORECARD & COMPARISON TABLE -->
+        <div class="card">
+          <h2 style="font-size:1.1rem; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+            📊 Live Financial Performance Comparison (Daily 200 Rooms)
+          </h2>
+
+          <!-- TOP 4 METRIC TILES -->
+          <div class="metrics-grid-4">
+            <div class="metric-card">
+              <div class="metric-title">Baseline RevPAR</div>
+              <div id="s1-m-base-revpar" class="metric-value">$150.00</div>
+              <div class="metric-sub">Occupancy: <span id="s1-m-base-occ">50%</span></div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-title">Baseline Net GOP</div>
+              <div id="s1-m-base-gop" class="metric-value">$23,550</div>
+              <div class="metric-sub">Rooms GOPPAR: <span id="s1-m-base-goppar">$117.75</span></div>
+            </div>
+
+            <div class="metric-card highlight" id="card-metric-disc-revpar">
+              <div class="metric-title">Strategy RevPAR</div>
+              <div id="s1-m-disc-revpar" class="metric-value">$147.00</div>
+              <div class="metric-sub">Occupancy: <span id="s1-m-disc-occ">70%</span></div>
+            </div>
+
+            <div class="metric-card highlight" id="card-metric-disc-gop">
+              <div class="metric-title">Strategy Net GOP</div>
+              <div id="s1-m-disc-gop" class="metric-value negative">$21,840</div>
+              <div class="metric-sub">Variance: <span id="s1-m-gop-diff" style="font-weight:700;">-$1,710</span></div>
+            </div>
+          </div>
+
+          <!-- DETAILED FINANCIAL BREAKDOWN TABLE -->
+          <div class="comparison-table-wrapper">
+            <table class="financial-table">
+              <thead>
+                <tr>
+                  <th>Financial Line Item</th>
+                  <th class="text-right">Baseline (Rack)</th>
+                  <th class="text-right" id="th-active-strat">Active Strategy</th>
+                  <th class="text-right">Variance ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Average Daily Rate (ADR)</td>
+                  <td class="text-right" id="tbl-base-adr">$300.00</td>
+                  <td class="text-right" id="tbl-disc-adr">$210.00</td>
+                  <td class="text-right" id="tbl-var-adr">-$90.00</td>
+                </tr>
+                <tr>
+                  <td>Rooms Sold (Occupancy)</td>
+                  <td class="text-right" id="tbl-base-rooms">100 (50%)</td>
+                  <td class="text-right" id="tbl-disc-rooms">140 (70%)</td>
+                  <td class="text-right" id="tbl-var-rooms">+40 rooms</td>
+                </tr>
+                <tr>
+                  <td>Gross Room Revenue</td>
+                  <td class="text-right" id="tbl-base-room-rev">$30,000</td>
+                  <td class="text-right" id="tbl-disc-room-rev">$29,400</td>
+                  <td class="text-right" id="tbl-var-room-rev">-$600</td>
+                </tr>
+                <tr>
+                  <td>Less: Channel Acq. / OTA Cost</td>
+                  <td class="text-right" id="tbl-base-ota-cost">-$2,250</td>
+                  <td class="text-right" id="tbl-disc-ota-cost">-$2,205</td>
+                  <td class="text-right" id="tbl-var-ota-cost">+$45</td>
+                </tr>
+                <tr>
+                  <td>Less: Variable Room Costs ($45/rm)</td>
+                  <td class="text-right" id="tbl-base-vc">-$4,500</td>
+                  <td class="text-right" id="tbl-disc-vc">-$6,300</td>
+                  <td class="text-right" id="tbl-var-vc">-$1,800</td>
+                </tr>
+                <tr>
+                  <td>Plus: Net Ancillary Contribution (F&B/Spa)</td>
+                  <td class="text-right" id="tbl-base-anc">+$2,600</td>
+                  <td class="text-right" id="tbl-disc-anc">+$3,640</td>
+                  <td class="text-right" id="tbl-var-anc">+$1,040</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                  <td><strong>Daily Net GOP (Owner Profit)</strong></td>
+                  <td class="text-right"><strong id="tbl-base-net-gop">$25,850</strong></td>
+                  <td class="text-right"><strong id="tbl-disc-net-gop">$24,535</strong></td>
+                  <td class="text-right"><span id="tbl-badge-variance" class="badge-loss">-$1,315</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- STRATEGIC VERDICT CALLOUT -->
+          <div id="s1-verdict-box" class="insight-box warning">
+            <strong>Strategic Revenue Verdict:</strong><br>
+            <span id="s1-verdict-text">Calculating strategic outcome...</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STUDENT IN-CLASS TASKS & ACTIVE LEARNING WORKBENCH -->
+      <div class="card" style="margin-top:0.5rem;">
+        <h2 style="font-size:1.25rem;">
+          <span>📝 Student In-Class Lab Tasks & Decision Analysis</span>
+          <span style="font-size:0.8rem; background:#1e3a8a; color:white; padding:0.25rem 0.65rem; border-radius:9999px;">
+            HOSP 3150 Lab Exercise
+          </span>
+        </h2>
+        <div class="chapter-tag">Applied Problem Sets: Breakeven Math, Rate Fencing, Channel Yield & Group Displacement</div>
+
+        <div class="tasks-container">
+
+          <!-- TASK 1: BREAKEVEN OCCUPANCY AUDIT -->
+          <div class="task-card">
+            <div class="task-header" onclick="toggleTask(1)">
+              <div class="task-title-group">
+                <span class="task-tag">TASK 1</span>
+                <span class="task-title">The "Discount Trap" & Mathematical Breakeven Audit</span>
+              </div>
+              <span class="task-toggle-icon" id="task-icon-1">▼</span>
+            </div>
+            <div class="task-body" id="task-body-1">
+              <div class="task-prompt">
+                <strong>Hospitality Math Challenge:</strong> Many hoteliers incorrectly assume that cutting room rates will automatically generate enough volume to increase total profit. Using the current baseline figures ($300 Rack Rate, $45 Variable Cost, 50% Occupancy = 100 rooms sold = $25,500 Baseline Rooms GOP), calculate the <strong>exact number of rooms (or Occupancy %)</strong> the hotel must sell at a 25% discount ($225 ADR) just to break even on daily rooms profit.
+              </div>
+
+              <div class="interactive-calc-box">
+                <div style="font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:var(--navy-dark);">
+                  Interactive Student Breakeven Formula Verifier:
+                </div>
+                <div class="calc-row">
+                  <span>New Discounted ADR ($225) - Variable Cost ($45) = <strong>$180 Contribution Margin / Room</strong></span>
+                </div>
+                <div class="calc-row">
+                  <label for="t1-student-input">Your Calculated Breakeven Occupancy %:</label>
+                  <input type="number" id="t1-student-input" class="calc-input" placeholder="e.g. 70.8" step="0.1">
+                  <span>%</span>
+                  <button class="btn-action" onclick="verifyTask1()">Verify My Answer</button>
+                  <button class="btn-action btn-secondary" onclick="revealTask1Formula()">Show Step-by-Step Derivation</button>
+                </div>
+                <div id="t1-feedback" class="calc-feedback"></div>
+              </div>
+
+              <label style="font-weight:600; display:block; margin-bottom:0.35rem;">Student Reflection & Managerial Takeaway:</label>
+              <textarea id="ref-task-1" class="task-textarea" placeholder="Explain why expecting a 20.8 percentage point occupancy jump (from 50% to 71%) during soft shoulder season is usually unrealistic, and how variable cleaning costs punish high-volume discounting..."></textarea>
+            </div>
+          </div>
+
+          <!-- TASK 2: RATE FENCE ARCHITECTURE -->
+          <div class="task-card">
+            <div class="task-header" onclick="toggleTask(2)">
+              <div class="task-title-group">
+                <span class="task-tag">TASK 2</span>
+                <span class="task-title">Rate Fencing Experiment: Eliminating Rate Dilution</span>
+              </div>
+              <span class="task-toggle-icon" id="task-icon-2">▼</span>
+            </div>
+            <div class="task-body" id="task-body-2" style="display:none;">
+              <div class="task-prompt">
+                <strong>Strategic Experiment:</strong> Switch between <strong>Strategy A (Unfenced Flat Discount)</strong> and <strong>Strategy B (Fenced Rate Strategy)</strong> using the controls above. Notice how Strategy B protects the $300 rack rate for late-booking corporate guests while offering the discount only to price-sensitive leisure guests who book 14+ days in advance.
+              </div>
+
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:0.5rem; padding:1rem; margin-bottom:1rem;">
+                <div style="font-weight:700; color:var(--navy-dark); margin-bottom:0.4rem;">
+                  Rate Fence Classification Matrix:
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.8rem;">
+                  <div style="background:white; padding:0.75rem; border-radius:4px; border:1px solid #e2e8f0;">
+                    <strong>Non-Physical Fences (Rules & Restrictions):</strong>
+                    <ul style="margin-left:1.2rem; margin-top:0.3rem; color:#475569;">
+                      <li>14-day or 21-day advance booking requirement</li>
+                      <li>100% Non-refundable prepayment upon booking</li>
+                      <li>Minimum Length of Stay (MLOS: 2-3 nights)</li>
+                      <li>Closed user-group login (Loyalty Club Member only)</li>
+                    </ul>
+                  </div>
+                  <div style="background:white; padding:0.75rem; border-radius:4px; border:1px solid #e2e8f0;">
+                    <strong>Physical Fences (Tangible Product Attributes):</strong>
+                    <ul style="margin-left:1.2rem; margin-top:0.3rem; color:#475569;">
+                      <li>Room view (Red Mountain pool view vs. parking lot)</li>
+                      <li>Bed configuration & square footage (King Suite vs. Double Queen)</li>
+                      <li>Floor level and quiet elevator proximity</li>
+                      <li>Included premium amenities (club lounge access, breakfast)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <label style="font-weight:600; display:block; margin-bottom:0.35rem;">Student Analysis:</label>
+              <textarea id="ref-task-2" class="task-textarea" placeholder="Identify 2 physical fences and 2 non-physical fences you would implement at this St. George resort. Explain how they prevent higher-paying guests from buying down into the discounted rate..."></textarea>
+            </div>
+          </div>
+
+          <!-- TASK 3: CHANNEL DISTRIBUTION & NET REVPAR -->
+          <div class="task-card">
+            <div class="task-header" onclick="toggleTask(3)">
+              <div class="task-title-group">
+                <span class="task-tag">TASK 3</span>
+                <span class="task-title">Distribution Channel Yield Audit: Net RevPAR vs. Gross RevPAR</span>
+              </div>
+              <span class="task-toggle-icon" id="task-icon-3">▼</span>
+            </div>
+            <div class="task-body" id="task-body-3" style="display:none;">
+              <div class="task-prompt">
+                <strong>Distribution Economics:</strong> Hotels do not keep 100% of the room rate when booked through third-party Online Travel Agencies (OTAs like Expedia or Booking.com). OTAs charge an average <strong>18% merchant commission</strong>, while Direct Bookings (Brand.com) carry only a ~3% transaction cost. Adjust the <em>OTA Share of Bookings %</em> slider to 60% and observe the financial deduction.
+              </div>
+
+              <div class="interactive-calc-box">
+                <div style="font-size:0.85rem; font-weight:700; color:var(--navy-dark); margin-bottom:0.5rem;">
+                  Channel Comparison Snapshot at Current Rate ($<span id="t3-disp-adr">210</span>):
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.8rem;">
+                  <div style="padding:0.75rem; background:#f0fdf4; border:1px solid #86efac; border-radius:4px;">
+                    <strong>Direct Brand.com Booking:</strong><br>
+                    Gross ADR: $<span id="t3-direct-adr">210.00</span><br>
+                    Direct Cost (3%): -$<span id="t3-direct-cost">6.30</span><br>
+                    <strong style="color:#15803d;">Net ADR Kept: $<span id="t3-direct-net">203.70</span></strong>
+                  </div>
+                  <div style="padding:0.75rem; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px;">
+                    <strong>OTA (Expedia/Booking.com) Booking:</strong><br>
+                    Gross ADR: $<span id="t3-ota-adr">210.00</span><br>
+                    OTA Commission (18%): -$<span id="t3-ota-cost">37.80</span><br>
+                    <strong style="color:#b91c1c;">Net ADR Kept: $<span id="t3-ota-net">172.20</span></strong>
+                  </div>
+                </div>
+              </div>
+
+              <label style="font-weight:600; display:block; margin-bottom:0.35rem;">Student In-Class Reflection:</label>
+              <textarea id="ref-task-3" class="task-textarea" placeholder="Why is measuring Net RevPAR and Net GOPPAR far more critical than Gross RevPAR when evaluating promotional flash sales on OTAs?"></textarea>
+            </div>
+          </div>
+
+          <!-- TASK 4: GROUP RFP DISPLACEMENT DECISION -->
+          <div class="task-card">
+            <div class="task-header" onclick="toggleTask(4)">
+              <div class="task-title-group">
+                <span class="task-tag">TASK 4</span>
+                <span class="task-title">Group RFP Displacement Challenge: Accept, Reject, or Counter?</span>
+              </div>
+              <span class="task-toggle-icon" id="task-icon-4">▼</span>
+            </div>
+            <div class="task-body" id="task-body-4" style="display:none;">
+              <div class="task-prompt">
+                <strong>Executive Decision Case:</strong> The <em>Utah Medical Association</em> submits a Request for Proposal (RFP) for a 3-day conference requesting a block of <strong>45 rooms per night at a discounted group rate of $165/night</strong> (compared to your current $300 transient rack rate). They guarantee <strong>$45 per room/night in banquet F&B catering</strong> (which has a 65% contribution margin). Your unconstrained transient forecast projects <strong>80% transient occupancy (160 rooms)</strong> without the group. Since your total hotel capacity is 200 rooms, accepting the 45-room group would exceed capacity by 5 rooms, displacing 5 transient guests paying full $300 rack rate!
+              </div>
+
+              <div class="interactive-calc-box">
+                <div style="font-weight:700; color:var(--navy-dark); margin-bottom:0.75rem;">
+                  Make Your Executive Revenue Decision:
+                </div>
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
+                  <button class="btn-action" style="background:#15803d;" onclick="evaluateGroupDecision('accept')">
+                    Option A: Accept Group RFP ($165 Rate)
+                  </button>
+                  <button class="btn-action" style="background:#dc2626;" onclick="evaluateGroupDecision('reject')">
+                    Option B: Reject Group RFP (Stay Pure Transient)
+                  </button>
+                  <button class="btn-action" style="background:#0284c7;" onclick="evaluateGroupDecision('counter')">
+                    Option C: Counter-Offer at $195 Rate
+                  </button>
+                </div>
+                <div id="group-decision-feedback" style="display:none; padding:1rem; border-radius:0.4rem; font-size:0.85rem; line-height:1.5;"></div>
+              </div>
+
+              <label style="font-weight:600; display:block; margin-bottom:0.35rem;">Student Displacement Rationale:</label>
+              <textarea id="ref-task-4" class="task-textarea" placeholder="Explain the concept of opportunity cost in group displacement analysis. Why must banquet F&B contribution be added to room revenue when evaluating group business?"></textarea>
+            </div>
+          </div>
+
+          <!-- TASK 5: DIAGNOSTIC CONCEPT QUIZ -->
+          <div class="task-card">
+            <div class="task-header" onclick="toggleTask(5)">
+              <div class="task-title-group">
+                <span class="task-tag">TASK 5</span>
+                <span class="task-title">Diagnostic Concept Check (In-Class Auto-Graded Quiz)</span>
+              </div>
+              <span class="task-toggle-icon" id="task-icon-5">▼</span>
+            </div>
+            <div class="task-body" id="task-body-5" style="display:none;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <span style="font-size:0.85rem; color:#475569;">Test your mastery of Chapter 11 revenue management principles:</span>
+                <span id="quiz-score-badge" style="background:#e2e8f0; color:#1e293b; font-weight:700; font-size:0.8rem; padding:0.25rem 0.65rem; border-radius:9999px;">
+                  Score: 0 / 4 Completed
+                </span>
+              </div>
+
+              <!-- QUIZ Q1 -->
+              <div class="quiz-question">
+                <div class="quiz-q-text">1. Why does a flat 30% discount frequently destroy GOPPAR even when room occupancy increases?</div>
+                <label class="quiz-option"><input type="radio" name="qq1" onchange="gradeQuiz(1, 'A')"> A) Because fixed mortgage and insurance costs increase whenever occupancy increases.</label>
+                <label class="quiz-option"><input type="radio" name="qq1" onchange="gradeQuiz(1, 'B')"> B) Because variable costs ($45/room) scale with every extra occupied room, diluting the lower rate's contribution margin.</label>
+                <label class="quiz-option"><input type="radio" name="qq1" onchange="gradeQuiz(1, 'C')"> C) Because local lodging taxes are charged only on discounted rooms.</label>
+                <div id="q1-fb" class="quiz-feedback"></div>
+              </div>
+
+              <!-- QUIZ Q2 -->
+              <div class="quiz-question">
+                <div class="quiz-q-text">2. Which of the following best represents a NON-PHYSICAL rate fence?</div>
+                <label class="quiz-option"><input type="radio" name="qq2" onchange="gradeQuiz(2, 'A')"> A) Upgrading a guest from a standard room to a luxury pool-view balcony suite.</label>
+                <label class="quiz-option"><input type="radio" name="qq2" onchange="gradeQuiz(2, 'B')"> B) Providing free access to the resort spa and fitness cabanas.</label>
+                <label class="quiz-option"><input type="radio" name="qq2" onchange="gradeQuiz(2, 'C')"> C) Requiring a 14-day advance booking with a 100% non-refundable prepayment policy.</label>
+                <div id="q2-fb" class="quiz-feedback"></div>
+              </div>
+
+              <!-- QUIZ Q3 -->
+              <div class="quiz-question">
+                <div class="quiz-q-text">3. If a hotel sells a room for $200 via Expedia (18% commission) versus $180 directly on Brand.com (3% cost), which generates higher Net Revenue?</div>
+                <label class="quiz-option"><input type="radio" name="qq3" onchange="gradeQuiz(3, 'A')"> A) Direct booking on Brand.com ($174.60 Net vs. $164.00 Net on Expedia).</label>
+                <label class="quiz-option"><input type="radio" name="qq3" onchange="gradeQuiz(3, 'B')"> B) Expedia booking because the gross price of $200 is $20 higher.</label>
+                <label class="quiz-option"><input type="radio" name="qq3" onchange="gradeQuiz(3, 'C')"> C) Both generate identical net margins because commission is tax-deductible.</label>
+                <div id="q3-fb" class="quiz-feedback"></div>
+              </div>
+
+              <!-- QUIZ Q4 -->
+              <div class="quiz-question">
+                <div class="quiz-q-text">4. What is the primary purpose of a Group Displacement Analysis?</div>
+                <label class="quiz-option"><input type="radio" name="qq4" onchange="gradeQuiz(4, 'A')"> A) To calculate hotel housekeeping scheduling shifts for the coming weekend.</label>
+                <label class="quiz-option"><input type="radio" name="qq4" onchange="gradeQuiz(4, 'B')"> B) To determine if the total net contribution of a group exceeds the forgone revenue from displaced higher-paying transient guests.</label>
+                <label class="quiz-option"><input type="radio" name="qq4" onchange="gradeQuiz(4, 'C')"> C) To ensure that group guests do not mix with individual leisure guests at the hotel pool.</label>
+                <div id="q4-fb" class="quiz-feedback"></div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CANVAS EXIT TICKET & CLIPBOARD COPY -->
+        <div class="report-action-bar">
+          <div>
+            <div style="font-weight:700; color:var(--navy-dark); font-size:0.95rem;">
+              📋 Canvas In-Class Submission Generator
+            </div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">
+              Generates a comprehensive executive memo compiling your active metrics, task answers, and reflection notes.
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span id="copy-status" class="copy-success-badge">✓ Copied to Clipboard!</span>
+            <button class="btn-action" style="background:var(--crimson-accent);" onclick="copyCompleteReport()">
+              Copy Complete Lab Report to Clipboard
+            </button>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
     <!-- SIMULATION 2: DIGITAL MEDIA & ROAS -->
-    <div id="sim-digital" class="tab-content">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 2: Digital Media Mix & ROAS Allocator</h2>
-                    <p>Chapters 13 & 16 Alignment (IMC, Advertising & Digital Funnel)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> Allocate a $100,000 seasonal campaign budget across four promotional channels to maximize direct booking revenue.
-                </p>
+    <div id="sim-2" class="sim-panel">
+      <div class="two-col-grid">
+        <div class="card">
+          <h2>Simulation 2: Digital Media Mix & ROAS Allocator</h2>
+          <div class="chapter-tag">Chapters 13 & 16 Alignment (IMC, Advertising & Digital Funnel)</div>
+          <div class="scenario-box">
+            <strong>Scenario:</strong> Allocate a $100,000 seasonal campaign budget across four promotional channels to maximize direct booking revenue.
+          </div>
 
-                <div class="form-group">
-                    <div class="form-label"><span>Paid Search & Google Metasearch ($)</span><span id="disp-b-search" class="form-val-display">$35,000</span></div>
-                    <input type="range" id="input-b-search" min="0" max="100000" step="5000" value="35000" oninput="calcDigitalSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Meta & TikTok Paid Social Video ($)</span><span id="disp-b-social" class="form-val-display">$40,000</span></div>
-                    <input type="range" id="input-b-social" min="0" max="100000" step="5000" value="40000" oninput="calcDigitalSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Travel Micro-Influencer Partnerships ($)</span><span id="disp-b-inf" class="form-val-display">$15,000</span></div>
-                    <input type="range" id="input-b-inf" min="0" max="100000" step="5000" value="15000" oninput="calcDigitalSim()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Regional Outdoor Billboards (OOH) ($)</span><span id="disp-b-ooh" class="form-val-display">$10,000</span></div>
-                    <input type="range" id="input-b-ooh" min="0" max="100000" step="5000" value="10000" oninput="calcDigitalSim()">
-                </div>
-
-                <div style="font-size: 0.82rem; font-weight: 700; color: var(--navy); margin-top: 8px;">
-                    Total Campaign Budget: <span id="disp-total-budget" style="color: var(--crimson);">$100,000</span>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Paid Search & Google Metasearch ($)</span>
+              <span id="s2-c1-val" class="control-val">$35,000</span>
             </div>
+            <input type="range" id="s2-c1" min="0" max="100000" step="5000" value="35000" oninput="calcSim2()">
+          </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulated Direct Booking Attribution</h2>
-                    <p>Attributed Room Revenue & Return on Ad Spend</p>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <div class="label">Total Impressions</div>
-                        <div class="value" id="dig-impressions">2,450,000</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="label">Direct Bookings</div>
-                        <div class="value" id="dig-bookers">1,280</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Direct Room Revenue</div>
-                        <div class="value" id="dig-revenue">$512,000</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Blended ROAS</div>
-                        <div class="value" id="dig-roas">5.12x</div>
-                    </div>
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Multi-Touch Attribution Insight:</h4>
-                    <p id="dig-verdict-text">
-                        Search ads capture bottom-funnel demand (6.2x ROAS), but social video and micro-influencers generate top-of-funnel consideration essential for brand discovery.
-                    </p>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-digital" placeholder="Why would allocating 100% of the budget to Paid Search eventually lead to diminishing returns?"></textarea>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Meta & TikTok Paid Social Video ($)</span>
+              <span id="s2-c2-val" class="control-val">$40,000</span>
             </div>
+            <input type="range" id="s2-c2" min="0" max="100000" step="5000" value="40000" oninput="calcSim2()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Travel Micro-Influencer Partnerships ($)</span>
+              <span id="s2-c3-val" class="control-val">$15,000</span>
+            </div>
+            <input type="range" id="s2-c3" min="0" max="100000" step="5000" value="15000" oninput="calcSim2()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Regional Outdoor Billboards (OOH) ($)</span>
+              <span id="s2-c4-val" class="control-val">$10,000</span>
+            </div>
+            <input type="range" id="s2-c4" min="0" max="100000" step="5000" value="10000" oninput="calcSim2()">
+          </div>
+
+          <div style="font-weight:700; text-align:right; font-size:0.875rem;" id="s2-total-budget">
+            Total Campaign Budget: $100,000
+          </div>
         </div>
+
+        <div class="card">
+          <h2>Simulated Direct Booking Attribution</h2>
+          <div class="chapter-tag">Attributed Room Revenue & Return on Ad Spend</div>
+
+          <div class="metrics-grid-4" style="grid-template-columns:1fr 1fr;">
+            <div class="metric-card">
+              <div class="metric-title">Total Impressions</div>
+              <div id="s2-impressions" class="metric-value">22,750,000</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-title">Direct Bookings</div>
+              <div id="s2-bookings" class="metric-value">1,233</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Direct Room Revenue</div>
+              <div id="s2-revenue" class="metric-value">$493,000</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Blended ROAS</div>
+              <div id="s2-roas" class="metric-value">4.93x</div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <strong>Multi-Touch Attribution Insight:</strong><br>
+            <span>Search ads capture bottom-funnel demand (6.2x ROAS), but social video and micro-influencers generate top-of-funnel consideration essential for brand discovery.</span>
+          </div>
+
+          <div class="reflection-box">
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.35rem;">Student In-Class Reflection:</label>
+            <textarea id="ref-sim-2" class="task-textarea" placeholder="Why would allocating 100% of the budget to Paid Search eventually lead to diminishing returns?"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- SIMULATION 3: PERCEPTUAL POSITIONING MAP -->
-    <div id="sim-positioning" class="tab-content">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 3: 2-Axis Perceptual Brand Positioning</h2>
-                    <p>Chapter 8 Alignment (Segmentation, Targeting & Positioning)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> Position a new hospitality concept in an uncontested market white space. Adjust coordinates to see competitive separation on the live SVG map.
-                </p>
+    <!-- SIMULATION 3: PERCEPTUAL BRAND MAP -->
+    <div id="sim-3" class="sim-panel">
+      <div class="two-col-grid">
+        <div class="card">
+          <h2>Simulation 3: 2-Axis Perceptual Brand Positioning</h2>
+          <div class="chapter-tag">Chapter 8 Alignment (Segmentation, Targeting & Positioning)</div>
+          <div class="scenario-box">
+            <strong>Scenario:</strong> Position a new hospitality concept in an uncontested market white space. Adjust coordinates to see competitive separation on the live SVG map.
+          </div>
 
-                <div class="form-group">
-                    <div class="form-label"><span>X-Axis: Functional Efficiency <--> Lifestyle Experience</span><span id="disp-pos-x" class="form-val-display">+65</span></div>
-                    <input type="range" id="input-pos-x" min="-100" max="100" value="65" oninput="drawPerceptualMap()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Y-Axis: Accessible Value <--> Luxury Exclusivity</span><span id="disp-pos-y" class="form-val-display">-20</span></div>
-                    <input type="range" id="input-pos-y" min="-100" max="100" value="-20" oninput="drawPerceptualMap()">
-                </div>
-
-                <div class="form-group">
-                    <label style="font-size: 0.82rem; font-weight: 600;">Brand Concept Name:</label>
-                    <input type="text" id="input-brand-name" class="text-input" value="Nomad Basecamp Hotel" oninput="drawPerceptualMap()">
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Generated Positioning Statement:</h4>
-                    <p id="pos-statement-gen" style="font-style: italic; color: #1E293B;">
-                        "For adventure travelers, Nomad Basecamp Hotel is the lifestyle concept that delivers vibrant communal experiences at accessible mid-scale rates."
-                    </p>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>X-Axis: Functional Efficiency <--> Lifestyle Experience</span>
+              <span id="s3-x-val" class="control-val">+65</span>
             </div>
+            <input type="range" id="s3-x" min="-100" max="100" value="65" oninput="calcSim3()">
+          </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Live Competitive Positioning Map</h2>
-                    <p>Visualizing Strategic Distance vs. Local Competitors</p>
-                </div>
-
-                <div class="chart-container">
-                    <svg id="svg-map" width="100%" height="220" viewBox="0 0 400 220">
-                        <line x1="20" y1="110" x2="380" y2="110" stroke="#CBD5E1" stroke-width="2" />
-                        <line x1="200" y1="10" x2="200" y2="210" stroke="#CBD5E1" stroke-width="2" />
-                        
-                        <text x="20" y="105" font-size="8.5" fill="#64748B">Functional</text>
-                        <text x="335" y="105" font-size="8.5" fill="#64748B">Lifestyle</text>
-                        <text x="205" y="20" font-size="8.5" fill="#64748B">Ultra-Luxury</text>
-                        <text x="205" y="205" font-size="8.5" fill="#64748B">Accessible</text>
-
-                        <circle cx="80" cy="180" r="5" fill="#64748B" />
-                        <text x="90" y="184" font-size="8" fill="#475569">Motel 6</text>
-
-                        <circle cx="110" cy="130" r="5" fill="#64748B" />
-                        <text x="120" y="134" font-size="8" fill="#475569">Hampton</text>
-
-                        <circle cx="330" cy="40" r="5" fill="#64748B" />
-                        <text x="275" y="44" font-size="8" fill="#475569">Amangiri</text>
-
-                        <circle cx="290" cy="95" r="5" fill="#64748B" />
-                        <text x="300" y="99" font-size="8" fill="#475569">Autograph</text>
-
-                        <circle id="brand-dot" cx="265" cy="130" r="8" fill="#BA0C2F" stroke="#FFFFFF" stroke-width="2" />
-                        <text id="brand-label" x="275" y="135" font-size="9" font-weight="bold" fill="#BA0C2F">Nomad Basecamp</text>
-                    </svg>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-positioning" placeholder="Why is positioning in an uncontested white space only effective if that quadrant contains a profitable target market?"></textarea>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Y-Axis: Accessible Value <--> Luxury Exclusivity</span>
+              <span id="s3-y-val" class="control-val">-20</span>
             </div>
+            <input type="range" id="s3-y" min="-100" max="100" value="-20" oninput="calcSim3()">
+          </div>
+
+          <div class="control-group">
+            <label style="font-size:0.875rem; font-weight:600; display:block; margin-bottom:0.25rem;">Brand Concept Name:</label>
+            <input type="text" id="s3-brand-name" value="Nomad Basecamp Hotel" oninput="calcSim3()" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:0.375rem; font-size:0.875rem;">
+          </div>
+
+          <div class="insight-box" style="margin-top:1rem;">
+            <strong>Generated Positioning Statement:</strong><br>
+            <em id="s3-stmt">"For value-conscious lifestyle guests, Nomad Basecamp Hotel is the market-defining concept that provides immersive social programming and curated local adventure without standard industry compromises."</em>
+          </div>
         </div>
+
+        <div class="card">
+          <h2>Live Competitive Positioning Map</h2>
+          <div class="chapter-tag">Visualizing Strategic Distance vs. Local Competitors</div>
+
+          <div class="map-container">
+            <svg width="100%" height="100%" viewBox="0 0 400 320">
+              <!-- Axes -->
+              <line x1="200" y1="20" x2="200" y2="300" stroke="#cbd5e1" stroke-width="2" />
+              <line x1="20" y1="160" x2="380" y2="160" stroke="#cbd5e1" stroke-width="2" />
+              
+              <!-- Axis Labels -->
+              <text x="200" y="15" text-anchor="middle" font-size="10" fill="#64748b" font-weight="bold">Ultra-Luxury (+100)</text>
+              <text x="200" y="315" text-anchor="middle" font-size="10" fill="#64748b" font-weight="bold">Accessible (-100)</text>
+              <text x="10" y="163" text-anchor="start" font-size="10" fill="#64748b" font-weight="bold">Functional</text>
+              <text x="390" y="163" text-anchor="end" font-size="10" fill="#64748b" font-weight="bold">Lifestyle</text>
+
+              <!-- Competitor Points -->
+              <circle cx="330" cy="50" r="6" fill="#94a3b8" />
+              <text x="330" y="40" text-anchor="middle" font-size="10" fill="#475569">Amangiri</text>
+
+              <circle cx="280" cy="110" r="6" fill="#94a3b8" />
+              <text x="280" y="100" text-anchor="middle" font-size="10" fill="#475569">Autograph Collection</text>
+
+              <circle cx="80" cy="230" r="6" fill="#94a3b8" />
+              <text x="80" y="245" text-anchor="middle" font-size="10" fill="#475569">Hampton Inn</text>
+
+              <circle cx="40" cy="270" r="6" fill="#94a3b8" />
+              <text x="40" y="285" text-anchor="middle" font-size="10" fill="#475569">Motel 6</text>
+
+              <!-- Active User Brand Dot -->
+              <circle id="s3-dot" cx="330" cy="188" r="8" fill="#dc2626" stroke="#ffffff" stroke-width="2" />
+              <text id="s3-dot-label" x="330" y="205" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="bold">Nomad Basecamp Hotel</text>
+            </svg>
+          </div>
+
+          <div class="reflection-box" style="margin-top:1.5rem;">
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.35rem;">Student In-Class Reflection:</label>
+            <textarea id="ref-sim-3" class="task-textarea" placeholder="Why is positioning in an uncontested white space only effective if that quadrant contains a profitable target market?"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- SIMULATION 4: SERVICESCAPE -->
-    <div id="sim-servicescape" class="tab-content">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 4: Servicescape Atmosphere & Dwell-Time Model</h2>
-                    <p>Chapter 9 Alignment (Designing and Managing Products)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> Optimize physical environment parameters for a resort lobby lounge to maximize emotional pleasure, dwell time, and Food & Beverage check averages.
-                </p>
+    <!-- SIMULATION 4: SERVICESCAPE ECONOMICS -->
+    <div id="sim-4" class="sim-panel">
+      <div class="two-col-grid">
+        <div class="card">
+          <h2>Simulation 4: Servicescape Atmosphere & Dwell-Time Model</h2>
+          <div class="chapter-tag">Chapter 9 Alignment (Designing and Managing Products)</div>
+          <div class="scenario-box">
+            <strong>Scenario:</strong> Optimize physical environment parameters for a resort lobby lounge to maximize emotional pleasure, dwell time, and Food & Beverage check averages.
+          </div>
 
-                <div class="form-group">
-                    <div class="form-label"><span>Lighting Warmth (Kelvin)</span><span id="disp-serv-light" class="form-val-display">2700K (Warm Ambient)</span></div>
-                    <input type="range" id="input-serv-light" min="2000" max="5000" step="100" value="2700" oninput="calcServicescape()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Acoustic Volume & Curation (dB)</span><span id="disp-serv-sound" class="form-val-display">62 dB (Lounge)</span></div>
-                    <input type="range" id="input-serv-sound" min="40" max="85" step="1" value="62" oninput="calcServicescape()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Ambient Scent Diffusion Quality</span><span id="disp-serv-scent" class="form-val-display">High (Custom Botanical)</span></div>
-                    <input type="range" id="input-serv-scent" min="1" max="5" step="1" value="4" oninput="calcServicescape()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Seating Ergonomics & Density</span><span id="disp-serv-seat" class="form-val-display">Plush Lounge</span></div>
-                    <input type="range" id="input-serv-seat" min="1" max="5" step="1" value="4" oninput="calcServicescape()">
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Lighting Warmth (Kelvin)</span>
+              <span id="s4-kelvin-val" class="control-val">2700K</span>
             </div>
+            <input type="range" id="s4-kelvin" min="2000" max="5000" step="100" value="2700" oninput="calcSim4()">
+          </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Predicted Guest Behavioral Outcomes</h2>
-                    <p>Mehrabian-Russell Environmental Psychology Model</p>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <div class="label">Pleasure Index</div>
-                        <div class="value" id="serv-pleasure">8.6 / 10</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="label">Avg Dwell Time</div>
-                        <div class="value" id="serv-dwell">78 mins</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Spend Per Guest</div>
-                        <div class="value" id="serv-spend">$38.50</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Daily Lounge Revenue</div>
-                        <div class="value" id="serv-rev">$9,625</div>
-                    </div>
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Servicescape Impact:</h4>
-                    <p id="serv-verdict">
-                        Warm 2700K lighting and 62 dB acoustic curation induce relaxation, extending guest dwell time from 42 mins to 78 mins and boosting cocktail orders.
-                    </p>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-servicescape" placeholder="How do harsh fluorescent lighting (4500K) and sterile silence trigger avoidance behavior in hospitality spaces?"></textarea>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Acoustic Volume & Curation (dB)</span>
+              <span id="s4-db-val" class="control-val">62 dB</span>
             </div>
+            <input type="range" id="s4-db" min="40" max="85" value="62" oninput="calcSim4()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Ambient Scent Diffusion Quality</span>
+              <span id="s4-scent-val" class="control-val">High Quality</span>
+            </div>
+            <input type="range" id="s4-scent" min="1" max="3" value="3" oninput="calcSim4()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Seating Ergonomics & Density</span>
+              <span id="s4-seating-val" class="control-val">Plush Lounge</span>
+            </div>
+            <input type="range" id="s4-seating" min="1" max="3" value="3" oninput="calcSim4()">
+          </div>
         </div>
+
+        <div class="card">
+          <h2>Predicted Guest Behavioral Outcomes</h2>
+          <div class="chapter-tag">Mehrabian-Russell Environmental Psychology Model</div>
+
+          <div class="metrics-grid-4" style="grid-template-columns:1fr 1fr;">
+            <div class="metric-card">
+              <div class="metric-title">Pleasure Index</div>
+              <div id="s4-pleasure" class="metric-value">9.8 / 10</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-title">Avg Dwell Time</div>
+              <div id="s4-dwell" class="metric-value">84 mins</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Spend Per Guest</div>
+              <div id="s4-spend" class="metric-value">$40.20</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Daily Lounge Revenue</div>
+              <div id="s4-revenue" class="metric-value">$10,050</div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <strong>Servicescape Impact:</strong><br>
+            <span>Warm 2700K lighting and 62 dB acoustic curation induce relaxation, extending guest dwell time from 42 mins to 78 mins and boosting cocktail orders.</span>
+          </div>
+
+          <div class="reflection-box" style="margin-top:1.5rem;">
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.35rem;">Student In-Class Reflection:</label>
+            <textarea id="ref-sim-4" class="task-textarea" placeholder="How do harsh fluorescent lighting (4500K) and sterile silence trigger avoidance behavior in hospitality spaces?"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- SIMULATION 5: SERVICE-PROFIT CHAIN -->
-    <div id="sim-profit-chain" class="tab-content">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 5: Service-Profit Chain & Frontline Culture</h2>
-                    <p>Chapter 10 Alignment (Internal Marketing)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> Model how frontline wage rates, training investment, and discretionary empowerment limits affect staff turnover and hotel operating margins.
-                </p>
+    <div id="sim-5" class="sim-panel">
+      <div class="two-col-grid">
+        <div class="card">
+          <h2>Simulation 5: Service-Profit Chain & Frontline Culture</h2>
+          <div class="chapter-tag">Chapter 10 Alignment (Internal Marketing)</div>
+          <div class="scenario-box">
+            <strong>Scenario:</strong> Model how frontline wage rates, training investment, and discretionary empowerment limits affect staff turnover and hotel operating margins.
+          </div>
 
-                <div class="form-group">
-                    <div class="form-label"><span>Frontline Hourly Wage ($/hr)</span><span id="disp-sp-wage" class="form-val-display">$20.00/hr</span></div>
-                    <input type="range" id="input-sp-wage" min="14" max="28" step="0.5" value="20" oninput="calcProfitChain()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Annual Training Hours Per Staff</span><span id="disp-sp-train" class="form-val-display">40 hrs</span></div>
-                    <input type="range" id="input-sp-train" min="5" max="80" step="5" value="40" oninput="calcProfitChain()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Service Recovery Empowerment Limit</span><span id="disp-sp-emp" class="form-val-display">$150</span></div>
-                    <input type="range" id="input-sp-emp" min="0" max="300" step="25" value="150" oninput="calcProfitChain()">
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Frontline Hourly Wage ($/hr)</span>
+              <span id="s5-wage-val" class="control-val">$20.00/hr</span>
             </div>
+            <input type="range" id="s5-wage" min="12" max="30" step="0.5" value="20" oninput="calcSim5()">
+          </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Organizational Performance Metrics</h2>
-                    <p>Translating Internal Quality to Operating Profit</p>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <div class="label">Staff Turnover Rate</div>
-                        <div class="value" id="sp-turnover">28%</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="label">Guest Net Promoter Score</div>
-                        <div class="value" id="sp-nps">+68</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Repeat Guest Rate</div>
-                        <div class="value" id="sp-repeat">42%</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Net Operating Margin</div>
-                        <div class="value" id="sp-margin">31.4%</div>
-                    </div>
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Service-Profit Chain Dynamics:</h4>
-                    <p id="sp-verdict">
-                        Higher wages and empowerment reduce costly turnover by 50%, stabilizing service consistency and raising high-margin repeat guest bookings.
-                    </p>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-profit-chain" placeholder="Why does cutting frontline labor wages to save $2/hour frequently result in a net decline in hotel operating profits?"></textarea>
-                </div>
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Annual Training Hours Per Staff</span>
+              <span id="s5-train-val" class="control-val">40 hrs</span>
             </div>
+            <input type="range" id="s5-train" min="5" max="80" value="40" oninput="calcSim5()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Service Recovery Empowerment Limit</span>
+              <span id="s5-empower-val" class="control-val">$150</span>
+            </div>
+            <input type="range" id="s5-empower" min="0" max="500" step="25" value="150" oninput="calcSim5()">
+          </div>
         </div>
+
+        <div class="card">
+          <h2>Organizational Performance Metrics</h2>
+          <div class="chapter-tag">Translating Internal Quality to Operating Profit</div>
+
+          <div class="metrics-grid-4" style="grid-template-columns:1fr 1fr;">
+            <div class="metric-card">
+              <div class="metric-title">Staff Turnover Rate</div>
+              <div id="s5-turnover" class="metric-value">37%</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-title">Guest Net Promoter Score</div>
+              <div id="s5-nps" class="metric-value">+61</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Repeat Guest Rate</div>
+              <div id="s5-repeat" class="metric-value">42%</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-title">Net Operating Margin</div>
+              <div id="s5-margin" class="metric-value">28.9%</div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <strong>Service-Profit Chain Dynamics:</strong><br>
+            <span>Higher wages and empowerment reduce costly turnover by 50%, stabilizing service consistency and raising high-margin repeat guest bookings.</span>
+          </div>
+
+          <div class="reflection-box" style="margin-top:1.5rem;">
+            <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.35rem;">Student In-Class Reflection:</label>
+            <textarea id="ref-sim-5" class="task-textarea" placeholder="Why does cutting frontline labor wages to save $2/hour frequently result in a net decline in hotel operating profits?"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- SIMULATION 6: SUSTAINABLE DMO -->
-    <div id="sim-dmo" class="tab-content">
-        <div class="sim-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Simulation 6: Sustainable Destination Management Model</h2>
-                    <p>Chapter 17 Alignment (Destination Marketing & Stewardship)</p>
-                </div>
-                <p style="font-size: 0.82rem; margin-bottom: 14px; color: var(--text-muted);">
-                    <strong>Scenario:</strong> Balance regional tourism economic yield against environmental carrying capacity and resident support in a scenic gateway corridor (e.g., Greater Zion).
-                </p>
+  </main>
 
-                <div class="form-group">
-                    <div class="form-label"><span>Off-Peak / Winter Marketing Budget (%)</span><span id="disp-dmo-winter" class="form-val-display">55%</span></div>
-                    <input type="range" id="input-dmo-winter" min="10" max="90" step="5" value="55" oninput="calcDMO()">
-                </div>
+  <!-- JAVASCRIPT REACTIVE ENGINE -->
+  <script>
+    // GLOBAL STATE
+    let currentStrategy = 'unfenced'; // 'unfenced' or 'fenced'
+    let quizState = { q1: null, q2: null, q3: null, q4: null };
 
-                <div class="form-group">
-                    <div class="form-label"><span>TRT Tax Reinvested into Infrastructure (%)</span><span id="disp-dmo-infra" class="form-val-display">30%</span></div>
-                    <input type="range" id="input-dmo-infra" min="0" max="60" step="5" value="30" oninput="calcDMO()">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-label"><span>Dispersal Campaign Intensity</span><span id="disp-dmo-disp" class="form-val-display">High</span></div>
-                    <input type="range" id="input-dmo-disp" min="1" max="5" step="1" value="4" oninput="calcDMO()">
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>Destination Balanced Scorecard</h2>
-                    <p>Measuring Triple-Bottom-Line Performance</p>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <div class="label">Spend Per Visitor Day</div>
-                        <div class="value" id="dmo-yield">$345</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="label">Peak Trail Congestion</div>
-                        <div class="value" id="dmo-congestion">Moderate (54/100)</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Resident Support %</div>
-                        <div class="value" id="dmo-resident">79%</div>
-                    </div>
-                    <div class="metric-box highlight">
-                        <div class="label">Regional Econ Impact</div>
-                        <div class="value" id="dmo-impact">$285M</div>
-                    </div>
-                </div>
-
-                <div class="analysis-box">
-                    <h4>Destination Stewardship Strategy:</h4>
-                    <p id="dmo-verdict">
-                        Promoting shoulder-season travel and reallocating TRT tax to local trail infrastructure sustains economic yield while keeping resident support above 75%.
-                    </p>
-                </div>
-
-                <div style="margin-top: 14px;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--navy);">Student In-Class Reflection:</label>
-                    <textarea id="ref-dmo" placeholder="Why is transitioning from 'Destination Marketing' (volume) to 'Destination Management' (stewardship) essential for regional sustainability?"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CANVAS EXIT TICKET REPORT GENERATOR -->
-    <div id="sim-report" class="tab-content">
-        <div class="card" style="max-width: 800px; margin: 0 auto;">
-            <div class="card-header">
-                <h2>Canvas In-Class Activity Exit Ticket Generator</h2>
-                <p>Generate a structured completion card to upload to Canvas for Class Participation Credit</p>
-            </div>
-
-            <div class="student-header-inputs">
-                <div>
-                    <label style="font-size: 0.82rem; font-weight: 600;">Student Full Name:</label>
-                    <input type="text" id="stud-name" class="text-input" placeholder="e.g., Jane Doe" oninput="autoFillReport()">
-                </div>
-                <div>
-                    <label style="font-size: 0.82rem; font-weight: 600;">Activity / Simulation Completed:</label>
-                    <select id="stud-sim-select" class="text-input" onchange="autoFillReport()">
-                        <option value="Sim 1: Revenue Management & Rate Fences">Sim 1: Revenue Management & Rate Fences (Ch. 11)</option>
-                        <option value="Sim 2: Digital Media Allocation & ROAS">Sim 2: Digital Media Allocation & ROAS (Ch. 13 & 16)</option>
-                        <option value="Sim 3: 2-Axis Perceptual Brand Positioning">Sim 3: 2-Axis Perceptual Brand Positioning (Ch. 8)</option>
-                        <option value="Sim 4: Servicescape Economics">Sim 4: Servicescape Economics (Ch. 9)</option>
-                        <option value="Sim 5: Service-Profit Chain">Sim 5: Service-Profit Chain (Ch. 10)</option>
-                        <option value="Sim 6: Sustainable DMO Model">Sim 6: Sustainable DMO Model (Ch. 17)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 14px;">
-                <label style="font-size: 0.82rem; font-weight: 600;">Generated Submission Card (Canvas Ready):</label>
-                <textarea id="stud-final-report" style="height: 160px; font-family: monospace; font-size: 0.8rem;"></textarea>
-            </div>
-
-            <div style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
-                <button class="btn-secondary" onclick="generateReportText()">🔄 Refresh Report</button>
-                <button class="btn-primary" onclick="copyReport()">📋 Copy to Clipboard for Canvas</button>
-            </div>
-            <div id="copy-toast" class="copy-toast">✅ Exit Ticket copied to clipboard! Paste directly into Canvas.</div>
-        </div>
-    </div>
-
-</main>
-
-<script>
-    function openTab(tabId, btnElement) {
-        document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
-        document.querySelectorAll('.nav-tab-btn').forEach(function(el) { el.classList.remove('active'); });
-        
-        var target = document.getElementById(tabId);
-        if (target) target.classList.add('active');
-        
-        if (btnElement) {
-            btnElement.classList.add('active');
+    // TAB SWITCHING FUNCTION
+    function switchTab(tabIndex) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.sim-panel');
+      
+      tabs.forEach((tab, index) => {
+        if (index === tabIndex - 1) {
+          tab.classList.add('active');
         } else {
-            var btn = document.querySelector('[onclick*="' + tabId + '"]');
-            if (btn) btn.classList.add('active');
+          tab.classList.remove('active');
         }
+      });
 
-        if(tabId === 'sim-positioning') {
-            drawPerceptualMap();
-        } else if(tabId === 'sim-report') {
-            autoFillReport();
-        }
-    }
-
-    // SIM 1: REVENUE MANAGEMENT CALCS
-    function calcRevenueSim() {
-        var adr = parseFloat(document.getElementById('input-base-adr').value);
-        var occ = parseFloat(document.getElementById('input-base-occ').value);
-        var disc = parseFloat(document.getElementById('input-flat-disc').value);
-        var varCost = parseFloat(document.getElementById('input-var-cost').value);
-
-        document.getElementById('disp-base-adr').innerText = '$' + adr;
-        document.getElementById('disp-base-occ').innerText = occ + '%';
-        document.getElementById('disp-flat-disc').innerText = disc + '%';
-        document.getElementById('disp-var-cost').innerText = '$' + varCost;
-
-        var rooms = 200;
-        var baseRevPAR = (adr * occ) / 100;
-        var baseGOP = (rooms * (occ/100) * (adr - varCost));
-
-        var discADR = adr * (1 - (disc/100));
-        var discOcc = Math.min(100, occ * 1.4); // Volume elasticity
-        var discRevPAR = (discADR * discOcc) / 100;
-        var discGOP = (rooms * (discOcc/100) * (discADR - varCost));
-
-        document.getElementById('rev-base-revpar').innerText = '$' + baseRevPAR.toFixed(2);
-        document.getElementById('rev-base-gop').innerText = '$' + Math.round(baseGOP).toLocaleString();
-        document.getElementById('rev-disc-revpar').innerText = '$' + discRevPAR.toFixed(2);
-        document.getElementById('rev-disc-gop').innerText = '$' + Math.round(discGOP).toLocaleString();
-
-        var verdict = document.getElementById('rev-verdict-text');
-        if(discGOP < baseGOP) {
-            verdict.innerHTML = "<strong>CRITICAL WARNING:</strong> The flat " + disc + "% discount reduces daily GOP by $" + Math.round(baseGOP - discGOP).toLocaleString() + ". Extra cleaning costs ($" + varCost + "/room) on discounted volume erode profitability. Recommend rate fences instead.";
+      panels.forEach((panel, index) => {
+        if (index === tabIndex - 1) {
+          panel.classList.add('active');
         } else {
-            verdict.innerHTML = "<strong>MARGINAL GAIN:</strong> Volume increased, but profit margin dropped from " + ((baseGOP/(baseRevPAR*rooms))*100).toFixed(1) + "% to " + ((discGOP/(discRevPAR*rooms))*100).toFixed(1) + "%. Public rate cuts risk brand reference price erosion.";
+          panel.classList.remove('active');
         }
+      });
     }
 
-    // SIM 2: DIGITAL MEDIA CALCS
-    function calcDigitalSim() {
-        var bSearch = parseFloat(document.getElementById('input-b-search').value);
-        var bSocial = parseFloat(document.getElementById('input-b-social').value);
-        var bInf = parseFloat(document.getElementById('input-b-inf').value);
-        var bOoh = parseFloat(document.getElementById('input-b-ooh').value);
+    // STRATEGY SELECTOR
+    function selectStrategy(strat) {
+      currentStrategy = strat;
+      document.getElementById('strat-unfenced').checked = (strat === 'unfenced');
+      document.getElementById('strat-fenced').checked = (strat === 'fenced');
 
-        document.getElementById('disp-b-search').innerText = '$' + bSearch.toLocaleString();
-        document.getElementById('disp-b-social').innerText = '$' + bSocial.toLocaleString();
-        document.getElementById('disp-b-inf').innerText = '$' + bInf.toLocaleString();
-        document.getElementById('disp-b-ooh').innerText = '$' + bOoh.toLocaleString();
+      document.getElementById('card-strat-unfenced').className = strat === 'unfenced' ? 'radio-card selected' : 'radio-card';
+      document.getElementById('card-strat-fenced').className = strat === 'fenced' ? 'radio-card selected' : 'radio-card';
 
-        var total = bSearch + bSocial + bInf + bOoh;
-        document.getElementById('disp-total-budget').innerText = '$' + total.toLocaleString();
-
-        var impSearch = (bSearch / 2.50) * 1000;
-        var impSocial = (bSocial / 8.00) * 1000;
-        var impInf = (bInf / 12.00) * 1000;
-        var impOoh = (bOoh / 4.00) * 1000;
-        var totalImp = impSearch + impSocial + impInf + impOoh;
-
-        var revSearch = bSearch * 6.2;
-        var revSocial = bSocial * 4.8;
-        var revInf = bInf * 4.2;
-        var revOoh = bOoh * 2.1;
-        var totalRev = revSearch + revSocial + revInf + revOoh;
-
-        var bookers = Math.round(totalRev / 400);
-        var roas = total > 0 ? (totalRev / total).toFixed(2) : '0.00';
-
-        document.getElementById('dig-impressions').innerText = Math.round(totalImp).toLocaleString();
-        document.getElementById('dig-bookers').innerText = bookers.toLocaleString();
-        document.getElementById('dig-revenue').innerText = '$' + Math.round(totalRev).toLocaleString();
-        document.getElementById('dig-roas').innerText = roas + 'x';
+      document.getElementById('th-active-strat').innerText = strat === 'unfenced' ? 'Flat Discount' : 'Fenced Advance Rate';
+      calcSim1();
     }
 
-    // SIM 3: PERCEPTUAL POSITIONING MAP
-    function drawPerceptualMap() {
-        var xVal = parseFloat(document.getElementById('input-pos-x').value);
-        var yVal = parseFloat(document.getElementById('input-pos-y').value);
-        var brandName = document.getElementById('input-brand-name').value || 'New Concept';
+    // PRESET LOADER
+    function loadPricingPreset(preset) {
+      const buttons = document.querySelectorAll('.preset-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
 
-        document.getElementById('disp-pos-x').innerText = (xVal > 0 ? '+' : '') + xVal;
-        document.getElementById('disp-pos-y').innerText = (yVal > 0 ? '+' : '') + yVal;
-
-        var svgX = 200 + (xVal * 1.6);
-        var svgY = 110 - (yVal * 0.9);
-
-        var dot = document.getElementById('brand-dot');
-        var lbl = document.getElementById('brand-label');
-
-        if (dot && lbl) {
-            dot.setAttribute('cx', svgX);
-            dot.setAttribute('cy', svgY);
-            lbl.setAttribute('x', svgX + 10);
-            lbl.setAttribute('y', svgY + 5);
-            lbl.textContent = brandName;
-        }
-
-        var gen = document.getElementById('pos-statement-gen');
-        var qual = yVal > 0 ? 'luxury experiential travelers' : 'value-conscious lifestyle guests';
-        var benefit = xVal > 0 ? 'immersive social programming and curated local adventure' : 'frictionless operational efficiency and essential comfort';
-        if (gen) {
-            gen.innerText = '"For ' + qual + ', ' + brandName + ' is the market-defining concept that provides ' + benefit + ' without standard industry compromises."';
-        }
+      if (preset === 'shoulder') {
+        document.getElementById('s1-rack').value = 300;
+        document.getElementById('s1-occ').value = 50;
+        document.getElementById('s1-disc').value = 30;
+        document.getElementById('s1-vc').value = 45;
+        document.getElementById('s1-ota').value = 30;
+        document.getElementById('s1-anc').value = 40;
+        selectStrategy('unfenced');
+      } else if (preset === 'peak') {
+        document.getElementById('s1-rack').value = 380;
+        document.getElementById('s1-occ').value = 85;
+        document.getElementById('s1-disc').value = 10;
+        document.getElementById('s1-vc').value = 50;
+        document.getElementById('s1-ota').value = 15;
+        document.getElementById('s1-anc').value = 55;
+        selectStrategy('fenced');
+      } else if (preset === 'ota') {
+        document.getElementById('s1-rack').value = 280;
+        document.getElementById('s1-occ').value = 45;
+        document.getElementById('s1-disc').value = 35;
+        document.getElementById('s1-vc').value = 45;
+        document.getElementById('s1-ota').value = 75;
+        document.getElementById('s1-anc').value = 25;
+        selectStrategy('unfenced');
+      } else if (preset === 'ancillary') {
+        document.getElementById('s1-rack').value = 260;
+        document.getElementById('s1-occ').value = 55;
+        document.getElementById('s1-disc').value = 20;
+        document.getElementById('s1-vc').value = 40;
+        document.getElementById('s1-ota').value = 20;
+        document.getElementById('s1-anc').value = 85;
+        selectStrategy('fenced');
+      }
+      calcSim1();
     }
 
-    // SIM 4: SERVICESCAPE CALCS
-    function calcServicescape() {
-        var light = parseFloat(document.getElementById('input-serv-light').value);
-        var sound = parseFloat(document.getElementById('input-serv-sound').value);
-        var scent = parseFloat(document.getElementById('input-serv-scent').value);
-        var seat = parseFloat(document.getElementById('input-serv-seat').value);
-
-        document.getElementById('disp-serv-light').innerText = light + 'K';
-        document.getElementById('disp-serv-sound').innerText = sound + ' dB';
-        document.getElementById('disp-serv-scent').innerText = scent >= 4 ? 'High Quality' : (scent >= 2 ? 'Moderate' : 'Unscented');
-        document.getElementById('disp-serv-seat').innerText = seat >= 4 ? 'Plush Lounge' : 'Standard Bistro';
-
-        var pleasure = 5.0;
-        if(light >= 2500 && light <= 3000) pleasure += 1.8;
-        else if(light > 4000) pleasure -= 1.5;
-
-        if(sound >= 55 && sound <= 65) pleasure += 1.5;
-        else if(sound > 75) pleasure -= 2.0;
-
-        pleasure += (scent * 0.4);
-        pleasure += (seat * 0.5);
-        pleasure = Math.min(9.8, Math.max(2.0, pleasure));
-
-        var dwell = Math.round(30 + (pleasure * 5.5));
-        var spend = (15 + (dwell * 0.30)).toFixed(2);
-        var dailyRev = Math.round(spend * 250);
-
-        document.getElementById('serv-pleasure').innerText = pleasure.toFixed(1) + ' / 10';
-        document.getElementById('serv-dwell').innerText = dwell + ' mins';
-        document.getElementById('serv-spend').innerText = '$' + spend;
-        document.getElementById('serv-rev').innerText = '$' + dailyRev.toLocaleString();
+    // TASK ACCORDION TOGGLE
+    function toggleTask(num) {
+      const body = document.getElementById(`task-body-${num}`);
+      const icon = document.getElementById(`task-icon-${num}`);
+      if (body.style.display === 'none' || body.style.display === '') {
+        body.style.display = 'block';
+        icon.innerText = '▲';
+      } else {
+        body.style.display = 'none';
+        icon.innerText = '▼';
+      }
     }
 
-    // SIM 5: SERVICE-PROFIT CHAIN CALCS
-    function calcProfitChain() {
-        var wage = parseFloat(document.getElementById('input-sp-wage').value);
-        var train = parseFloat(document.getElementById('input-sp-train').value);
-        var emp = parseFloat(document.getElementById('input-sp-emp').value);
+    // ==========================================
+    // SIMULATION 1: REALISTIC REVENUE ENGINE
+    // ==========================================
+    function calcSim1() {
+      const TOTAL_ROOMS = 200;
 
-        document.getElementById('disp-sp-wage').innerText = '$' + wage.toFixed(2) + '/hr';
-        document.getElementById('disp-sp-train').innerText = train + ' hrs';
-        document.getElementById('disp-sp-emp').innerText = '$' + emp;
+      // Inputs
+      const rack = parseFloat(document.getElementById('s1-rack').value);
+      const baseOccPct = parseFloat(document.getElementById('s1-occ').value);
+      const discPct = parseFloat(document.getElementById('s1-disc').value);
+      const vc = parseFloat(document.getElementById('s1-vc').value);
+      const otaPct = parseFloat(document.getElementById('s1-ota').value);
+      const ancSpend = parseFloat(document.getElementById('s1-anc').value);
 
-        var turnover = 75 - ((wage - 14) * 3.5) - (train * 0.25) - (emp * 0.05);
-        turnover = Math.max(18, Math.min(85, Math.round(turnover)));
+      // Display Values
+      document.getElementById('s1-rack-val').innerText = `$${rack}`;
+      document.getElementById('s1-occ-val').innerText = `${baseOccPct}%`;
+      document.getElementById('s1-disc-val').innerText = `${discPct}%`;
+      document.getElementById('s1-vc-val').innerText = `$${vc}`;
+      document.getElementById('s1-ota-val').innerText = `${otaPct}%`;
+      document.getElementById('s1-anc-val').innerText = `$${ancSpend}`;
 
-        var nps = Math.round(-10 + ((wage - 14) * 4) + (train * 0.6) + (emp * 0.15));
-        nps = Math.max(-20, Math.min(85, nps));
+      // Update Channel Box values
+      const discRate = rack * (1 - discPct / 100);
+      document.getElementById('t3-disp-adr').innerText = discRate.toFixed(0);
+      document.getElementById('t3-direct-adr').innerText = discRate.toFixed(2);
+      document.getElementById('t3-direct-cost').innerText = (discRate * 0.03).toFixed(2);
+      document.getElementById('t3-direct-net').innerText = (discRate * 0.97).toFixed(2);
+      document.getElementById('t3-ota-adr').innerText = discRate.toFixed(2);
+      document.getElementById('t3-ota-cost').innerText = (discRate * 0.18).toFixed(2);
+      document.getElementById('t3-ota-net').innerText = (discRate * 0.82).toFixed(2);
 
-        var repeat = Math.round(15 + (nps * 0.45));
-        var margin = (22 + (nps * 0.14) - ((wage - 16) * 0.4)).toFixed(1);
+      // 1. BASELINE CALCULATIONS (100% Rack Rate, No Promotional Discount)
+      const baseRoomsSold = TOTAL_ROOMS * (baseOccPct / 100);
+      const baseRoomRev = baseRoomsSold * rack;
+      const baseRevPAR = baseRoomRev / TOTAL_ROOMS;
+      
+      // Channel costs: baseline uses 15% OTA default or user selected
+      const baseChannelFeePct = (otaPct / 100 * 0.18) + ((1 - otaPct / 100) * 0.03);
+      const baseChannelCost = baseRoomRev * baseChannelFeePct;
+      const baseRoomVC = baseRoomsSold * vc;
+      const baseAncContrib = baseRoomsSold * (ancSpend * 0.65); // 65% F&B/resort fee margin
+      const baseNetGOP = baseRoomRev - baseChannelCost - baseRoomVC + baseAncContrib;
+      const baseGOPPAR = baseNetGOP / TOTAL_ROOMS;
 
-        document.getElementById('sp-turnover').innerText = turnover + '%';
-        document.getElementById('sp-nps').innerText = (nps > 0 ? '+' : '') + nps;
-        document.getElementById('sp-repeat').innerText = repeat + '%';
-        document.getElementById('sp-margin').innerText = margin + '%';
-    }
+      // 2. STRATEGY MODELING
+      let stratRoomsSold = 0;
+      let stratGrossRoomRev = 0;
+      let stratAdr = 0;
+      let stratOccPct = 0;
 
-    // SIM 6: DMO CALCS
-    function calcDMO() {
-        var winter = parseFloat(document.getElementById('input-dmo-winter').value);
-        var infra = parseFloat(document.getElementById('input-dmo-infra').value);
-        var disp = parseFloat(document.getElementById('input-dmo-disp').value);
-
-        document.getElementById('disp-dmo-winter').innerText = winter + '%';
-        document.getElementById('disp-dmo-infra').innerText = infra + '%';
-        document.getElementById('disp-dmo-disp').innerText = disp >= 4 ? 'High' : (disp >= 2 ? 'Moderate' : 'Low');
-
-        var yieldVal = Math.round(210 + (winter * 1.8) + (disp * 15));
-        var congestion = Math.max(20, Math.round(95 - (winter * 0.5) - (disp * 6)));
-        var resident = Math.min(92, Math.round(45 + (infra * 0.6) + (winter * 0.2)));
-
-        document.getElementById('dmo-yield').innerText = '$' + yieldVal;
-        document.getElementById('dmo-congestion').innerText = congestion < 50 ? 'Low (' + congestion + '/100)' : (congestion < 75 ? 'Moderate (' + congestion + '/100)' : 'Severe Overcrowding (' + congestion + '/100)');
-        document.getElementById('dmo-resident').innerText = resident + '%';
-    }
-
-    // REPORT GENERATOR
-    function generateReportText() {
-        var name = document.getElementById('stud-name').value || '[Student Name]';
-        var sim = document.getElementById('stud-sim-select').value;
-        var reflection = '';
-
-        if(sim.indexOf('Sim 1') !== -1) reflection = document.getElementById('ref-revenue').value;
-        else if(sim.indexOf('Sim 2') !== -1) reflection = document.getElementById('ref-digital').value;
-        else if(sim.indexOf('Sim 3') !== -1) reflection = document.getElementById('ref-positioning').value;
-        else if(sim.indexOf('Sim 4') !== -1) reflection = document.getElementById('ref-servicescape').value;
-        else if(sim.indexOf('Sim 5') !== -1) reflection = document.getElementById('ref-profit-chain').value;
-        else if(sim.indexOf('Sim 6') !== -1) reflection = document.getElementById('ref-dmo').value;
-
-        var timestamp = new Date().toLocaleString();
-        var text = "=======================================================\n" +
-                   "UTAH TECH UNIVERSITY - HOSP 3150 IN-CLASS EXIT TICKET\n" +
-                   "=======================================================\n" +
-                   "Student Name: " + name + "\n" +
-                   "Timestamp: " + timestamp + "\n" +
-                   "Simulation Completed: " + sim + "\n\n" +
-                   "STUDENT STRATEGIC ANALYSIS & REFLECTION:\n" +
-                   (reflection ? reflection : "[No reflection entered. Please enter your reflection in the simulation tab.]") + "\n\n" +
-                   "Status: Verified In-Class Simulation Complete\n" +
-                   "=======================================================";
+      if (currentStrategy === 'unfenced') {
+        // UNFENCED FLAT DISCOUNT:
+        // Price Elasticity: E = -1.4. Every 1% discount stimulates ~1.3% more volume.
+        // But 40% of baseline guests cannibalize down to the lower rate.
+        const demandLift = 1 + (discPct / 100 * 1.35);
+        stratOccPct = Math.min(100, Math.round(baseOccPct * demandLift));
+        stratRoomsSold = TOTAL_ROOMS * (stratOccPct / 100);
+        stratAdr = discRate;
+        stratGrossRoomRev = stratRoomsSold * stratAdr;
+      } else {
+        // FENCED RATE STRATEGY:
+        // Fences: 14-day advance booking, non-refundable, prepaid.
+        // Protected Transient Rack Tier: 90% of baseline transient guests remain at full rack rate.
+        // Only 10% cannibalization leakage.
+        const rackGuestsRetained = baseRoomsSold * 0.90;
+        // Fenced discount stimulates price-sensitive incremental leisure guests
+        const incrementalLeisureRooms = (TOTAL_ROOMS - baseRoomsSold) * (discPct / 100 * 0.85);
+        const cannibalizedGuests = baseRoomsSold * 0.10;
         
-        document.getElementById('stud-final-report').value = text;
-    }
+        const fencedRoomsSold = Math.min(TOTAL_ROOMS - rackGuestsRetained, cannibalizedGuests + incrementalLeisureRooms);
+        stratRoomsSold = Math.min(TOTAL_ROOMS, Math.round(rackGuestsRetained + fencedRoomsSold));
+        stratOccPct = Math.round((stratRoomsSold / TOTAL_ROOMS) * 100);
 
-    function autoFillReport() {
-        generateReportText();
-    }
+        const revFromRack = rackGuestsRetained * rack;
+        const revFromFenced = (stratRoomsSold - rackGuestsRetained) * discRate;
+        stratGrossRoomRev = revFromRack + revFromFenced;
+        stratAdr = stratRoomsSold > 0 ? (stratGrossRoomRev / stratRoomsSold) : rack;
+      }
 
-    function copyReport() {
-        generateReportText();
-        var copyText = document.getElementById('stud-final-report');
-        copyText.select();
-        try {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(copyText.value);
-            } else {
-                document.execCommand('copy');
-            }
-            var toast = document.getElementById('copy-toast');
-            toast.style.display = 'block';
-            setTimeout(function() { toast.style.display = 'none'; }, 3500);
-        } catch (err) {
-            alert('Selection highlighted. Press Ctrl+C or Cmd+C to copy.');
+      // Channel costs for Strategy
+      const stratChannelFeePct = (otaPct / 100 * 0.18) + ((1 - otaPct / 100) * 0.03);
+      const stratChannelCost = stratGrossRoomRev * stratChannelFeePct;
+      const stratRoomVC = stratRoomsSold * vc;
+      const stratAncContrib = stratRoomsSold * (ancSpend * 0.65);
+      const stratNetGOP = stratGrossRoomRev - stratChannelCost - stratRoomVC + stratAncContrib;
+      const stratRevPAR = stratGrossRoomRev / TOTAL_ROOMS;
+
+      const diffGOP = stratNetGOP - baseNetGOP;
+
+      // UPDATE TOP METRIC TILES
+      document.getElementById('s1-m-base-revpar').innerText = `$${baseRevPAR.toFixed(2)}`;
+      document.getElementById('s1-m-base-occ').innerText = `${baseOccPct}% (${Math.round(baseRoomsSold)} rms)`;
+      document.getElementById('s1-m-base-gop').innerText = `$${Math.round(baseNetGOP).toLocaleString()}`;
+      document.getElementById('s1-m-base-goppar').innerText = `$${baseGOPPAR.toFixed(2)}`;
+
+      document.getElementById('s1-m-disc-revpar').innerText = `$${stratRevPAR.toFixed(2)}`;
+      document.getElementById('s1-m-disc-occ').innerText = `${stratOccPct}% (${Math.round(stratRoomsSold)} rms)`;
+
+      const discGopElem = document.getElementById('s1-m-disc-gop');
+      discGopElem.innerText = `$${Math.round(stratNetGOP).toLocaleString()}`;
+
+      const diffElem = document.getElementById('s1-m-gop-diff');
+      diffElem.innerText = `${diffGOP >= 0 ? '+' : ''}$${Math.round(diffGOP).toLocaleString()}`;
+      diffElem.style.color = diffGOP >= 0 ? 'var(--success-green)' : 'var(--crimson-accent)';
+
+      const cardMetricGop = document.getElementById('card-metric-disc-gop');
+      cardMetricGop.className = diffGOP >= 0 ? 'metric-card highlight positive-accent' : 'metric-card highlight negative-accent';
+
+      // UPDATE FINANCIAL COMPARISON TABLE
+      document.getElementById('tbl-base-adr').innerText = `$${rack.toFixed(2)}`;
+      document.getElementById('tbl-disc-adr').innerText = `$${stratAdr.toFixed(2)}`;
+      document.getElementById('tbl-var-adr').innerText = `${stratAdr >= rack ? '+' : ''}$${(stratAdr - rack).toFixed(2)}`;
+
+      document.getElementById('tbl-base-rooms').innerText = `${Math.round(baseRoomsSold)} (${baseOccPct}%)`;
+      document.getElementById('tbl-disc-rooms').innerText = `${Math.round(stratRoomsSold)} (${stratOccPct}%)`;
+      document.getElementById('tbl-var-rooms').innerText = `${stratRoomsSold >= baseRoomsSold ? '+' : ''}${Math.round(stratRoomsSold - baseRoomsSold)} rms`;
+
+      document.getElementById('tbl-base-room-rev').innerText = `$${Math.round(baseRoomRev).toLocaleString()}`;
+      document.getElementById('tbl-disc-room-rev').innerText = `$${Math.round(stratGrossRoomRev).toLocaleString()}`;
+      document.getElementById('tbl-var-room-rev').innerText = `${stratGrossRoomRev >= baseRoomRev ? '+' : ''}$${Math.round(stratGrossRoomRev - baseRoomRev).toLocaleString()}`;
+
+      document.getElementById('tbl-base-ota-cost').innerText = `-$${Math.round(baseChannelCost).toLocaleString()}`;
+      document.getElementById('tbl-disc-ota-cost').innerText = `-$${Math.round(stratChannelCost).toLocaleString()}`;
+      document.getElementById('tbl-var-ota-cost').innerText = `${(baseChannelCost - stratChannelCost) >= 0 ? '+' : ''}$${Math.round(baseChannelCost - stratChannelCost).toLocaleString()}`;
+
+      document.getElementById('tbl-base-vc').innerText = `-$${Math.round(baseRoomVC).toLocaleString()}`;
+      document.getElementById('tbl-disc-vc').innerText = `-$${Math.round(stratRoomVC).toLocaleString()}`;
+      document.getElementById('tbl-var-vc').innerText = `-$${Math.round(stratRoomVC - baseRoomVC).toLocaleString()}`;
+
+      document.getElementById('tbl-base-anc').innerText = `+$${Math.round(baseAncContrib).toLocaleString()}`;
+      document.getElementById('tbl-disc-anc').innerText = `+$${Math.round(stratAncContrib).toLocaleString()}`;
+      document.getElementById('tbl-var-anc').innerText = `${(stratAncContrib - baseAncContrib) >= 0 ? '+' : ''}$${Math.round(stratAncContrib - baseAncContrib).toLocaleString()}`;
+
+      document.getElementById('tbl-base-net-gop').innerText = `$${Math.round(baseNetGOP).toLocaleString()}`;
+      document.getElementById('tbl-disc-net-gop').innerText = `$${Math.round(stratNetGOP).toLocaleString()}`;
+
+      const badgeVar = document.getElementById('tbl-badge-variance');
+      badgeVar.className = diffGOP >= 0 ? 'badge-win' : 'badge-loss';
+      badgeVar.innerText = `${diffGOP >= 0 ? '+' : ''}$${Math.round(diffGOP).toLocaleString()}`;
+
+      // STRATEGIC VERDICT INSIGHT
+      const vBox = document.getElementById('s1-verdict-box');
+      const vText = document.getElementById('s1-verdict-text');
+
+      if (currentStrategy === 'unfenced') {
+        if (diffGOP < 0) {
+          vBox.className = 'insight-box warning';
+          vText.innerHTML = `<strong>CRITICAL PROFIT LEAKAGE:</strong> Offering a flat unfenced ${discPct}% discount reduces daily Net GOP by <strong>$${Math.abs(Math.round(diffGOP)).toLocaleString()}</strong>. Even though occupancy climbed from ${baseOccPct}% to ${stratOccPct}%, extra housekeeping costs ($${vc}/room) and rate dilution on guests who would have paid $${rack} destroyed profitability. <em>Switch to Strategy B (Fenced Rate Strategy) to protect rate integrity!</em>`;
+        } else {
+          vBox.className = 'insight-box success';
+          vText.innerHTML = `<strong>NARROW MARGINAL GAIN:</strong> High ancillary spend ($${ancSpend}/room) offset rate dilution to yield +$${Math.round(diffGOP).toLocaleString()} in daily GOP. However, an unfenced rate still leaves significant money on the table compared to a fenced rate fence strategy.`;
         }
+      } else {
+        if (diffGOP >= 0) {
+          vBox.className = 'insight-box success';
+          vText.innerHTML = `<strong>OPTIMAL YIELD MANAGEMENT:</strong> Fenced advance-purchase pricing generated <strong>+$${Math.round(diffGOP).toLocaleString()}</strong> in daily Net GOP! By strictly fencing the discounted rate (14-day advance booking + non-refundable prepayment), you protected full $${rack} ADR on late-booking transient travelers while capturing ${Math.round(stratRoomsSold - baseRoomsSold)} incremental leisure rooms.`;
+        } else {
+          vBox.className = 'insight-box warning';
+          vText.innerHTML = `<strong>HIGH COMPRESSION WARNING:</strong> In a high-demand period (${baseOccPct}% base occupancy), offering any discount dilutes high-yield rack rate demand. Recommend closing discount tiers completely and enforcing a 2-night Minimum Length of Stay (MLOS).`;
+        }
+      }
     }
 
-    // Initialize all calculations on load
-    window.onload = function() {
-        calcRevenueSim();
-        calcDigitalSim();
-        drawPerceptualMap();
-        calcServicescape();
-        calcProfitChain();
-        calcDMO();
-    };
-</script>
+    // ==========================================
+    // TASK 1: BREAKEVEN VERIFIER
+    // ==========================================
+    function verifyTask1() {
+      const studentVal = parseFloat(document.getElementById('t1-student-input').value);
+      const fb = document.getElementById('t1-feedback');
+      fb.style.display = 'block';
 
+      // Baseline GOP = $300 * 100 - $45 * 100 = $25,500.
+      // New Rate = $225. New Contribution Margin = $225 - $45 = $180.
+      // Required Rooms = 25,500 / 180 = 141.67 rooms.
+      // Required Occupancy = 141.67 / 200 = 70.83%.
+      if (isNaN(studentVal)) {
+        fb.style.background = '#fef2f2';
+        fb.style.color = '#b91c1c';
+        fb.innerHTML = '⚠️ Please enter a number for your calculated occupancy % (e.g. 70.8%).';
+        return;
+      }
+
+      if (Math.abs(studentVal - 70.83) <= 1.5) {
+        fb.style.background = '#f0fdf4';
+        fb.style.color = '#15803d';
+        fb.innerHTML = `<strong>🎉 EXCELLENT CALCULATION!</strong> Exactly correct. At a $225 ADR with $45 variable costs, each room contributes $180 ($225 - $45). To match the baseline GOP of $25,500, the hotel must sell <strong>141.7 rooms (70.8% occupancy)</strong>. That represents a massive +20.8 percentage point increase (+41.7% more guests) just to achieve zero profit change!`;
+      } else {
+        fb.style.background = '#fffbeb';
+        fb.style.color = '#b45309';
+        fb.innerHTML = `<strong>Close!</strong> Your input was ${studentVal}%, but the exact mathematical breakeven occupancy is <strong>70.8%</strong> (141.7 rooms). Click "Show Step-by-Step Derivation" below to see how to calculate it.`;
+      }
+    }
+
+    function revealTask1Formula() {
+      const fb = document.getElementById('t1-feedback');
+      fb.style.display = 'block';
+      fb.style.background = '#f8fafc';
+      fb.style.color = '#0f172a';
+      fb.innerHTML = `
+        <strong>Step-by-Step Breakeven Derivation:</strong><br>
+        1. <strong>Baseline Rooms GOP:</strong> 100 occupied rooms × ($300 ADR - $45 VC) = 100 × $255 = <strong>$25,500</strong>.<br>
+        2. <strong>Discounted Contribution Margin:</strong> $225 ADR - $45 Variable Cost = <strong>$180 per occupied room</strong>.<br>
+        3. <strong>Required Rooms to Break Even:</strong> $25,500 ÷ $180 = <strong>141.67 rooms</strong>.<br>
+        4. <strong>Required Occupancy:</strong> 141.67 rooms ÷ 200 total rooms = <strong>70.83% Occupancy</strong>.<br>
+        <em>Managerial Implication:</em> You must sell 42 more rooms (+42% volume) just to make the exact same dollar profit!
+      `;
+    }
+
+    // ==========================================
+    // TASK 4: GROUP DISPLACEMENT EVALUATION
+    // ==========================================
+    function evaluateGroupDecision(choice) {
+      const fb = document.getElementById('group-decision-feedback');
+      fb.style.display = 'block';
+
+      // Case figures:
+      // Group: 45 rooms @ $160 ADR + $45 banquet F&B (65% margin = $29.25/rm). Variable room cost = $45/rm.
+      // Group Net Contribution / Room = ($160 - $45 room VC) + $29.25 F&B = $115 + $29.25 = $144.25/room/night.
+      // Group Total Daily Contribution = 45 rooms * $144.25 = $6,491.25.
+      // Displaced Transient: Capacity 200. Transient forecast = 160 rooms.
+      // 160 + 45 = 205 rooms -> Displaces 5 transient rooms.
+      // Transient Net Contribution / Room = $300 - $45 = $255.
+      // Displaced Transient Margin Lost = 5 rooms * $255 = $1,275.
+      // Net Variance for Option A = $6,491.25 - $1,275 = +$5,216.25 per night!
+
+      if (choice === 'accept') {
+        fb.style.background = '#f0fdf4';
+        fb.style.color = '#15803d';
+        fb.style.border = '1px solid #86efac';
+        fb.innerHTML = `
+          <strong>DECISION VERDICT: ACCEPT RFP (RECOMMENDED STRATEGY)</strong><br>
+          • <strong>Total Group Net Contribution:</strong> 45 rooms × ($115 room margin + $29.25 banquet F&B margin) = <strong>+$6,491 / night</strong>.<br>
+          • <strong>Transient Displacement Cost:</strong> Displaces 5 full-rate transient rooms (5 × $255 margin) = <strong>-$1,275 / night</strong>.<br>
+          • <strong>Net Variance:</strong> <strong style="font-size:1rem; color:#15803d;">+$5,216 / night (+$15,648 for the 3-night stay!)</strong><br>
+          <em>Why this works:</em> Because shoulder season transient demand only reaches 160 rooms (80%), the hotel has 40 unused rooms. The group fills all 40 empty rooms, and the banquet catering contribution ($45 × 65%) far surpasses the loss of only 5 displaced transient rooms.
+        `;
+      } else if (choice === 'reject') {
+        fb.style.background = '#fef2f2';
+        fb.style.color = '#991b1b';
+        fb.style.border = '1px solid #fca5a5';
+        fb.innerHTML = `
+          <strong>DECISION VERDICT: REJECT RFP (SUB-OPTIMAL)</strong><br>
+          By rejecting the group, the hotel leaves 40 rooms empty every night (60 unsold room nights over the weekend). You protected 5 transient rooms at full rate, but walked away from <strong>+$15,648 in net conference profit</strong>. In revenue management, unfilled rooms spoil forever with zero salvage value.
+        `;
+      } else if (choice === 'counter') {
+        fb.style.background = '#eff6ff';
+        fb.style.color = '#1e40af';
+        fb.style.border = '1px solid #93c5fd';
+        fb.innerHTML = `
+          <strong>DECISION VERDICT: COUNTER-OFFER AT $195 (HIGH-VALUE NEGOTIATION)</strong><br>
+          If the Utah Medical Association accepts your counter-offer of $195, net profit increases to <strong>+$6,791 / night</strong> (+$20,373 total). However, revenue directors must assess competitive market risk: if competing resorts in St. George offer $165, the group may walk away entirely!
+        `;
+      }
+    }
+
+    // ==========================================
+    // TASK 5: AUTO-GRADED QUIZ
+    // ==========================================
+    function gradeQuiz(qNum, selected) {
+      quizState[`q${qNum}`] = selected;
+      const fb = document.getElementById(`q${qNum}-fb`);
+      fb.style.display = 'block';
+
+      if (qNum === 1) {
+        if (selected === 'B') {
+          fb.style.background = '#dcfce7'; fb.style.color = '#15803d';
+          fb.innerText = '✓ Correct! Housekeeping and linen expenses rise with volume, drastically compressing the lower room rate's margin.';
+        } else {
+          fb.style.background = '#fee2e2'; fb.style.color = '#b91c1c';
+          fb.innerText = '✗ Incorrect. The correct answer is B. Variable operating costs ($45/room) scale directly with room volume.';
+        }
+      } else if (qNum === 2) {
+        if (selected === 'C') {
+          fb.style.background = '#dcfce7'; fb.style.color = '#15803d';
+          fb.innerText = '✓ Correct! Advance purchase, non-refundable prepayment, and length of stay are non-physical fences (transaction rules).';
+        } else {
+          fb.style.background = '#fee2e2'; fb.style.color = '#b91c1c';
+          fb.innerText = '✗ Incorrect. Room views, square footage, and amenities are physical fences. Advance purchase rules are non-physical fences.';
+        }
+      } else if (qNum === 3) {
+        if (selected === 'A') {
+          fb.style.background = '#dcfce7'; fb.style.color = '#15803d';
+          fb.innerText = '✓ Correct! Direct booking keeps $174.60 ($180 × 97%), beating Expedia's $164.00 ($200 × 82%) by $10.60 per room.';
+        } else {
+          fb.style.background = '#fee2e2'; fb.style.color = '#b91c1c';
+          fb.innerText = '✗ Incorrect. Answer is A. Expedia's 18% commission takes $36/room, leaving only $164 Net, whereas Direct keeps $174.60.';
+        }
+      } else if (qNum === 4) {
+        if (selected === 'B') {
+          fb.style.background = '#dcfce7'; fb.style.color = '#15803d';
+          fb.innerText = '✓ Correct! Group displacement compares the total net gain of group business (including F&B) against the opportunity cost of displaced transient rooms.';
+        } else {
+          fb.style.background = '#fee2e2'; fb.style.color = '#b91c1c';
+          fb.innerText = '✗ Incorrect. Group displacement is an economic evaluation of whether accepting group business nets more total profit than the transient revenue it displaces.';
+        }
+      }
+
+      // Update quiz badge
+      let answered = 0;
+      let score = 0;
+      if (quizState.q1) { answered++; if (quizState.q1 === 'B') score++; }
+      if (quizState.q2) { answered++; if (quizState.q2 === 'C') score++; }
+      if (quizState.q3) { answered++; if (quizState.q3 === 'A') score++; }
+      if (quizState.q4) { answered++; if (quizState.q4 === 'B') score++; }
+
+      const badge = document.getElementById('quiz-score-badge');
+      badge.innerText = `Score: ${score} / 4 (${Math.round((score/4)*100)}%)`;
+      badge.style.background = score >= 3 ? '#dcfce7' : '#fee2e2';
+      badge.style.color = score >= 3 ? '#15803d' : '#b91c1c';
+    }
+
+    // ==========================================
+    // CANVAS LAB REPORT CLIPBOARD GENERATOR
+    // ==========================================
+    function copyCompleteReport() {
+      const rack = document.getElementById('s1-rack').value;
+      const occ = document.getElementById('s1-occ').value;
+      const disc = document.getElementById('s1-disc').value;
+      const vc = document.getElementById('s1-vc').value;
+      const ota = document.getElementById('s1-ota').value;
+      const anc = document.getElementById('s1-anc').value;
+
+      const baseRevpar = document.getElementById('s1-m-base-revpar').innerText;
+      const baseGop = document.getElementById('s1-m-base-gop').innerText;
+      const stratRevpar = document.getElementById('s1-m-disc-revpar').innerText;
+      const stratGop = document.getElementById('s1-m-disc-gop').innerText;
+      const diffGop = document.getElementById('s1-m-gop-diff').innerText;
+
+      const r1 = document.getElementById('ref-task-1').value || "[Student did not enter text for Task 1]";
+      const r2 = document.getElementById('ref-task-2').value || "[Student did not enter text for Task 2]";
+      const r3 = document.getElementById('ref-task-3').value || "[Student did not enter text for Task 3]";
+      const r4 = document.getElementById('ref-task-4').value || "[Student did not enter text for Task 4]";
+
+      const quizSummary = `Q1: ${quizState.q1 || 'N/A'}, Q2: ${quizState.q2 || 'N/A'}, Q3: ${quizState.q3 || 'N/A'}, Q4: ${quizState.q4 || 'N/A'}`;
+
+      const reportText = `=====================================================
+UTAH TECH UNIVERSITY • HOSP 3150 LAB ASSIGNMENT
+HOSPITALITY REVENUE MANAGEMENT & RATE FENCE REPORT
+Course Instructor: Dr. Saeed Vayghan (Fall 2026)
+=====================================================
+
+1. ACTIVE SIMULATION CONFIGURATION:
+- Base Rack Rate (BAR): $${rack}
+- Baseline Occupancy: ${occ}%
+- Promotional Discount: ${disc}%
+- Variable Room Cost: $${vc}/room
+- OTA Channel Share: ${ota}% (18% commission)
+- Ancillary Spend / Room: $${anc} (65% margin)
+- Selected Strategy: ${currentStrategy === 'unfenced' ? 'Unfenced Flat Discount' : 'Fenced Advance Purchase Tier'}
+
+2. FINANCIAL PERFORMANCE RESULTS:
+- Baseline RevPAR: ${baseRevpar} | Baseline Daily Net GOP: ${baseGop}
+- Strategy RevPAR: ${stratRevpar} | Strategy Daily Net GOP: ${stratGop}
+- Net Profit Variance: ${diffGop}
+
+3. STUDENT LAB DELIVERABLES & REFLECTIONS:
+[Task 1 - Breakeven & Elasticity Audit]:
+${r1}
+
+[Task 2 - Rate Fencing Architecture]:
+${r2}
+
+[Task 3 - Channel Distribution & Net RevPAR]:
+${r3}
+
+[Task 4 - Group Displacement Analysis]:
+${r4}
+
+4. IN-CLASS DIAGNOSTIC QUIZ RESULTS:
+- Answers: ${quizSummary}
+=====================================================`;
+
+      navigator.clipboard.writeText(reportText).then(() => {
+        const badge = document.getElementById('copy-status');
+        badge.style.display = 'inline';
+        setTimeout(() => { badge.style.display = 'none'; }, 3500);
+      });
+    }
+
+    // ==========================================
+    // MODULES 2 TO 5 CALCULATION ENGINES
+    // ==========================================
+    function calcSim2() {
+      const c1 = parseFloat(document.getElementById('s2-c1').value);
+      const c2 = parseFloat(document.getElementById('s2-c2').value);
+      const c3 = parseFloat(document.getElementById('s2-c3').value);
+      const c4 = parseFloat(document.getElementById('s2-c4').value);
+
+      document.getElementById('s2-c1-val').innerText = `$${c1.toLocaleString()}`;
+      document.getElementById('s2-c2-val').innerText = `$${c2.toLocaleString()}`;
+      document.getElementById('s2-c3-val').innerText = `$${c3.toLocaleString()}`;
+      document.getElementById('s2-c4-val').innerText = `$${c4.toLocaleString()}`;
+
+      const totalBudget = c1 + c2 + c3 + c4;
+      document.getElementById('s2-total-budget').innerText = `Total Campaign Budget: $${totalBudget.toLocaleString()}`;
+
+      const impressions = (c1 * 120) + (c2 * 250) + (c3 * 300) + (c4 * 500);
+      const bookings = Math.round((c1 * 0.018) + (c2 * 0.011) + (c3 * 0.009) + (c4 * 0.002));
+      const revenue = Math.round((c1 * 6.2) + (c2 * 4.8) + (c3 * 4.1) + (c4 * 1.5));
+      const roas = totalBudget > 0 ? (revenue / totalBudget).toFixed(2) : "0.00";
+
+      document.getElementById('s2-impressions').innerText = impressions.toLocaleString();
+      document.getElementById('s2-bookings').innerText = bookings.toLocaleString();
+      document.getElementById('s2-revenue').innerText = `$${revenue.toLocaleString()}`;
+      document.getElementById('s2-roas').innerText = `${roas}x`;
+    }
+
+    function calcSim3() {
+      const xVal = parseInt(document.getElementById('s3-x').value);
+      const yVal = parseInt(document.getElementById('s3-y').value);
+      const brandName = document.getElementById('s3-brand-name').value || "New Brand";
+
+      document.getElementById('s3-x-val').innerText = (xVal >= 0 ? "+" : "") + xVal;
+      document.getElementById('s3-y-val').innerText = (yVal >= 0 ? "+" : "") + yVal;
+
+      const svgX = 200 + (xVal * 1.8);
+      const svgY = 160 - (yVal * 1.4);
+
+      const dot = document.getElementById('s3-dot');
+      const label = document.getElementById('s3-dot-label');
+
+      dot.setAttribute('cx', svgX);
+      dot.setAttribute('cy', svgY);
+      label.setAttribute('x', svgX);
+      label.setAttribute('y', svgY + 17);
+      label.textContent = brandName;
+
+      let valueSeg = yVal < 0 ? "value-conscious" : "luxury-seeking";
+      let expSeg = xVal > 0 ? "lifestyle" : "functional efficiency";
+
+      document.getElementById('s3-stmt').innerText = `"For ${valueSeg} ${expSeg} guests, ${brandName} is the market-defining concept that provides immersive social programming and curated local adventure without standard industry compromises."`;
+    }
+
+    function calcSim4() {
+      const kelvin = parseInt(document.getElementById('s4-kelvin').value);
+      const db = parseInt(document.getElementById('s4-db').value);
+      const scent = parseInt(document.getElementById('s4-scent').value);
+      const seating = parseInt(document.getElementById('s4-seating').value);
+
+      document.getElementById('s4-kelvin-val').innerText = `${kelvin}K`;
+      document.getElementById('s4-db-val').innerText = `${db} dB`;
+      
+      const scentLabels = ["Basic", "Standard", "High Quality"];
+      const seatingLabels = ["Standard", "Comfort", "Plush Lounge"];
+      
+      document.getElementById('s4-scent-val').innerText = scentLabels[scent - 1];
+      document.getElementById('s4-seating-val').innerText = seatingLabels[seating - 1];
+
+      // Mehrabian-Russell Model calculations
+      let pleasure = 10 - (Math.abs(kelvin - 2700) / 400) - (Math.abs(db - 62) / 8) + (scent * 0.8) + (seating * 0.9);
+      pleasure = Math.max(1, Math.min(10, pleasure));
+
+      const dwell = Math.round(35 + (pleasure * 5));
+      const spend = (18 + (pleasure * 2.25)).toFixed(2);
+      const totalRev = Math.round(dwell * 120 * (spend / 40));
+
+      document.getElementById('s4-pleasure').innerText = `${pleasure.toFixed(1)} / 10`;
+      document.getElementById('s4-dwell').innerText = `${dwell} mins`;
+      document.getElementById('s4-spend').innerText = `$${spend}`;
+      document.getElementById('s4-revenue').innerText = `$${totalRev.toLocaleString()}`;
+    }
+
+    function calcSim5() {
+      const wage = parseFloat(document.getElementById('s5-wage').value);
+      const train = parseInt(document.getElementById('s5-train').value);
+      const empower = parseInt(document.getElementById('s5-empower').value);
+
+      document.getElementById('s5-wage-val').innerText = `$${wage.toFixed(2)}/hr`;
+      document.getElementById('s5-train-val').innerText = `${train} hrs`;
+      document.getElementById('s5-empower-val').innerText = `$${empower}`;
+
+      const turnover = Math.max(15, Math.round(85 - ((wage - 12) * 3) - (train * 0.35) - (empower * 0.05)));
+      const nps = Math.min(85, Math.round(15 + ((wage - 12) * 2.5) + (train * 0.45) + (empower * 0.08)));
+      const repeat = Math.min(65, Math.round(20 + (nps * 0.35)));
+      const margin = (18 + ((wage - 12) * 0.4) + (repeat * 0.22) - (train * 0.04)).toFixed(1);
+
+      document.getElementById('s5-turnover').innerText = `${turnover}%`;
+      document.getElementById('s5-nps').innerText = `+${nps}`;
+      document.getElementById('s5-repeat').innerText = `${repeat}%`;
+      document.getElementById('s5-margin').innerText = `${margin}%`;
+    }
+
+    // INITIALIZE ALL SIMULATIONS
+    window.addEventListener('DOMContentLoaded', () => {
+      calcSim1();
+      calcSim2();
+      calcSim3();
+      calcSim4();
+      calcSim5();
+    });
+  </script>
 </body>
 </html>
